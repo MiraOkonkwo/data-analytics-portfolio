@@ -1,0 +1,8 @@
+# Large raw/derived data files — too big for git, documented in each project's README instead
+**/data/*.csv
+**/outputs/cleaned_orders_for_bi_tool.csv
+!**/data/Description*.csv
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
