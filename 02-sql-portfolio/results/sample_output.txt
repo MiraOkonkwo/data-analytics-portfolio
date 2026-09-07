@@ -1,0 +1,151 @@
+
+=== 1. Revenue by year — baseline aggregation with a computed line-total ===
+order_year | revenue | orders
+2012 | 18823201.72 | 654
+2013 | 38633120.01 | 1351
+2014 | 38870148.13 | 1351
+2015 | 41423456.72 | 1449
+2016 | 40568672.36 | 1506
+2017 | 40209904.23 | 1780
+
+=== 2. Top 10 customers by lifetime revenue ===
+CompanyName | Country | lifetime_revenue | orders
+B's Beverages | UK | 6154115.34 | 210
+Hungry Coyote Import Store | USA | 5698023.67 | 198
+Rancho grande | Argentina | 5559110.08 | 194
+Gourmet Lanchonetes | Brazil | 5552309.81 | 202
+Ana Trujillo Emparedados y helados | Mexico | 5534356.65 | 195
+Ricardo Adocicados | Brazil | 5524517.31 | 203
+
+=== 3. Monthly revenue with month-over-month % growth (window function: LAG) ===
+month | revenue | change_vs_prior_month | pct_change
+2012-07 | 2066219.4 | None | None
+2012-08 | 3556875.79 | 1490656.39 | 72.1
+2012-09 | 3440144.98 | -116730.81 | -3.3
+2012-10 | 3201529.96 | -238615.02 | -6.9
+2012-11 | 2980494.74 | -221035.22 | -6.9
+2012-12 | 3577936.85 | 597442.11 | 20.0
+
+=== 4. Running (cumulative) revenue total by month — window function: SUM() OVER ===
+month | revenue | running_total
+2012-07 | 2066219.4 | 2066219.4
+2012-08 | 3556875.79 | 5623095.19
+2012-09 | 3440144.98 | 9063240.17
+2012-10 | 3201529.96 | 12264770.13
+2012-11 | 2980494.74 | 15245264.87
+2012-12 | 3577936.85 | 18823201.72
+
+=== 5. Top 3 products by revenue WITHIN each category — window function: RANK() PARTITION BY ===
+CategoryName | ProductName | revenue | rank_in_category
+Beverages | Côte de Blaye | 53265895.24 | 1
+Beverages | Ipoh Coffee | 9333374.7 | 2
+Beverages | Chang | 3830510.96 | 3
+Condiments | Vegie-spread | 8810705.19 | 1
+Condiments | Northwoods Cranberry Sauce | 8073652.0 | 2
+Condiments | Sirop d'érable | 5839809.6 | 3
+
+=== 6. Employee sales performance ranking — window function: RANK() ===
+EmployeeID | employee | Title | revenue | rank
+4 | Margaret Peacock | Sales Representative | 51488395.2 | 1
+5 | Steven Buchanan | Sales Manager | 51386459.1 | 2
+3 | Janet Leverling | Sales Representative | 50445573.76 | 3
+1 | Nancy Davolio | Sales Representative | 49659423.23 | 4
+7 | Robert King | Sales Representative | 49651899.3 | 5
+8 | Laura Callahan | Inside Sales Coordinator | 49281136.81 | 6
+
+=== 7. Customer value quartiles — window function: NTILE(4) ===
+CompanyName | revenue | value_quartile
+B's Beverages | 6154115.34 | 1
+Hungry Coyote Import Store | 5698023.67 | 1
+Rancho grande | 5559110.08 | 1
+Gourmet Lanchonetes | 5552309.81 | 1
+Ana Trujillo Emparedados y helados | 5534356.65 | 1
+Ricardo Adocicados | 5524517.31 | 1
+
+=== 8. Average fulfillment time (order -> ship) by shipping carrier ===
+shipper | orders | avg_days_to_ship
+Speedy Express | 5331 | 7.92
+Federal Shipping | 5455 | 7.82
+United Package | 5475 | 7.78
+
+=== 9. Late-shipment rate by carrier (shipped after the date promised to the customer) ===
+shipper | orders | late_pct
+Speedy Express | 5331 | 23.3
+Federal Shipping | 5455 | 23.0
+United Package | 5475 | 22.9
+
+=== 10. Customers with no order in the most recent 60 days of data (churn risk) ===
+CompanyName | last_order_date | days_since_last_order
+FISSA Fabrica Inter. Salchichas S.A. | 2023-05-11 09:30:59 | 169
+QUICK-Stop | 2023-06-22 00:56:44 | 127
+Mère Paillarde | 2023-07-09 22:36:22 | 110
+The Big Cheese | 2023-07-16 19:29:58 | 103
+Pericles Comidas clásicas | 2023-07-27 03:20:11 | 92
+Du monde entier | 2023-08-02 13:56:28 | 86
+
+=== 11. Repeat vs one-time customers ===
+customer_type | customers | pct_of_customers
+Repeat | 93 | 100.0
+
+=== 12. Category share of total revenue — window function: SUM() OVER () (grand total) ===
+CategoryName | revenue | pct_of_total_revenue
+Beverages | 92163184.18 | 20.6
+Confections | 66337803.07 | 14.8
+Meat/Poultry | 64881147.97 | 14.5
+Dairy Products | 58018116.79 | 12.9
+Condiments | 55795126.78 | 12.4
+Seafood | 49921604.17 | 11.1
+
+=== 13. Revenue given up to discounting, by category ===
+CategoryName | revenue_lost_to_discount | avg_discount_pct
+Beverages | 18658.77 | 15.8
+Dairy Products | 16823.22 | 13.8
+Meat/Poultry | 15166.44 | 14.7
+Seafood | 10361.35 | 14.7
+Confections | 9741.88 | 14.2
+Condiments | 7647.67 | 13.4
+
+=== 14. Revenue and order count by country, ranked ===
+Country | orders | revenue | revenue_rank
+USA | 2280 | 62601564.84 | 1
+France | 1909 | 53323305.76 | 2
+Germany | 1895 | 51195766.82 | 3
+Brazil | 1659 | 45801779.28 | 4
+UK | 1234 | 33959254.8 | 5
+Mexico | 898 | 24802282.44 | 6
+
+=== 15. Customers whose average order value beats the company-wide average (subquery in HAVING) ===
+CompanyName | orders | avg_order_value
+FISSA Fabrica Inter. Salchichas S.A. | 155 | 30448.65
+Piccolo und mehr | 177 | 30318.79
+IT | 159 | 30316.21
+Morgenstern Gesundkost | 178 | 30051.07
+Pericles Comidas clásicas | 169 | 30010.78
+Paris spécialités | 161 | 29850.85
+
+=== 16. Each employee's revenue vs the company average — window function: AVG() OVER () ===
+employee | revenue | company_avg_revenue | vs_company_avg
+Margaret Peacock | 51488395.2 | 49820737.02 | 1667658.18
+Steven Buchanan | 51386459.1 | 49820737.02 | 1565722.08
+Janet Leverling | 50445573.76 | 49820737.02 | 624836.74
+Nancy Davolio | 49659423.23 | 49820737.02 | -161313.78
+Robert King | 49651899.3 | 49820737.02 | -168837.71
+Laura Callahan | 49281136.81 | 49820737.02 | -539600.21
+
+=== 17. Year-over-year revenue growth by category — window function: LAG() PARTITION BY ===
+CategoryName | order_year | revenue | yoy_pct_change
+Beverages | 2012 | 3832061.25 | None
+Beverages | 2013 | 7770360.75 | 102.8
+Beverages | 2014 | 7849069.0 | 1.0
+Beverages | 2015 | 8421088.0 | 7.3
+Beverages | 2016 | 8310426.0 | -1.3
+Beverages | 2017 | 8117288.06 | -2.3
+
+=== 18. Days between consecutive orders per customer (purchase cadence) — window function: LAG() PARTITION BY ===
+CustomerID | OrderID | OrderDate | days_since_prior_order
+ALFKI | 12671 | 2012-08-22 13:27:12 | None
+ALFKI | 12078 | 2012-08-31 17:02:02 | 9
+ALFKI | 11908 | 2012-09-07 02:39:28 | 6
+ALFKI | 14208 | 2012-10-06 12:09:23 | 29
+ALFKI | 19569 | 2012-12-16 21:52:46 | 71
+ALFKI | 12696 | 2012-12-18 05:24:55 | 1
