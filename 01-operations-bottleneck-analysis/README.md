@@ -1,6 +1,6 @@
 # Fulfillment Risk Analysis: Why First Class Shipping Fails 95% of the Time
 
-**Live dashboard:** https://claude.ai/code/artifact/89898b82-57df-4b3b-8227-0c03519cc8ae
+**Live dashboard:** https://miraokonkwo.github.io/data-analytics-portfolio/fulfillment-risk-analysis/
 
 An operational bottleneck audit of 180,519 order line items from the DataCo Smart
 Supply Chain dataset (Jan 2015 - Jan 2018), built to answer one question: *where
