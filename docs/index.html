@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Data Analytics Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef0f2; --paper:#ffffff; --ink:#0f151b; --ink-2:#4c5761; --ink-3:#7c8791;
+    --line:#d7dce0; --line-soft:#e6e9ec; --accent:#1c3f66; --accent-soft:#e6ecf3;
+    --blue:#2a78d6; --critical:#d03b3b;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --disp:"Manrope",var(--sans);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --bg:#0b0e11; --paper:#14181c; --ink:#eef1f3; --ink-2:#aab3bb; --ink-3:#7c8791;
+      --line:#2a3138; --line-soft:#20262c; --accent:#7fabdc; --accent-soft:#1a2733;
+      --blue:#3987e5; --critical:#e66767;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --bg:#0b0e11; --paper:#14181c; --ink:#eef1f3; --ink-2:#aab3bb; --ink-3:#7c8791;
+    --line:#2a3138; --line-soft:#20262c; --accent:#7fabdc; --accent-soft:#1a2733;
+    --blue:#3987e5; --critical:#e66767;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;}
+  .wrap{max-width:880px;margin:0 auto;padding:56px 20px 80px;}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(28px,4.5vw,40px);margin:8px 0 10px;text-wrap:balance;}
+  .dek{font-size:16px;color:var(--ink-2);max-width:60ch;margin:0 0 44px;}
+  .projects{display:flex;flex-direction:column;gap:16px;}
+  a.card{
+    display:block;background:var(--paper);border:1px solid var(--line);border-radius:6px;
+    padding:22px 24px;text-decoration:none;color:inherit;
+  }
+  a.card:hover{border-color:var(--blue);}
+  .card-num{font-family:var(--mono);font-size:11px;color:var(--blue);letter-spacing:.08em;}
+  .card h2{font-family:var(--disp);font-weight:700;font-size:19px;margin:6px 0 6px;color:var(--ink);}
+  .card p{margin:0;font-size:14.5px;color:var(--ink-2);}
+  .card .stat{font-family:var(--mono);font-size:12.5px;color:var(--critical);margin-top:10px;display:inline-block;}
+  footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3);}
+  footer a{color:var(--accent);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Data Analytics Portfolio</p>
+  <h1>Case studies from an operations background</h1>
+  <p class="dek">Each project starts as a real business question, not a tutorial exercise — built on real or realistic datasets, with findings quantified in dollars and days, not just charts.</p>
+
+  <div class="projects">
+    <a class="card" href="fulfillment-risk-analysis/">
+      <div class="card-num">Project 01</div>
+      <h2>Fulfillment Risk Analysis</h2>
+      <p>Audited 180,519 supply-chain orders to trace a 54.8% late-delivery rate to a shipping-mode SLA gap, not region or department.</p>
+      <span class="stat">First Class shipping: 95.3% late</span>
+    </a>
+
+    <a class="card" href="https://github.com/REPLACE_WITH_GITHUB_USERNAME/data-analytics-portfolio/tree/master/02-sql-portfolio">
+      <div class="card-num">Project 02</div>
+      <h2>SQL Portfolio</h2>
+      <p>18 business-question SQL queries — joins, CTEs, and window functions (RANK, NTILE, LAG) — against a 16,282-order relational database.</p>
+      <span class="stat" style="color:var(--blue)">sales ranking · churn risk · YoY growth</span>
+    </a>
+  </div>
+
+  <footer>More projects in progress. Source on <a href="https://github.com/REPLACE_WITH_GITHUB_USERNAME/data-analytics-portfolio">GitHub</a>.</footer>
+</div>
+</body>
+</html>
