@@ -1,7 +1,6 @@
-# Large raw/derived data files — too big for git, documented in each project's README instead
-**/data/*.csv
-**/outputs/cleaned_orders_for_bi_tool.csv
-!**/data/Description*.csv
+# Large raw/derived data files, too big for git, documented in the project's README instead
+01-operations-bottleneck-analysis/data/DataCoSupplyChainDataset.csv
+01-operations-bottleneck-analysis/outputs/cleaned_orders_for_bi_tool.csv
 
 # OS/editor cruft
 .DS_Store

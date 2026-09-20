@@ -1,0 +1,6 @@
+Department,calls,answer_rate,fcr_rate,avg_satisfaction,avg_handle_time
+Television,1022,0.8288,0.8843,3.4026,227.7308
+Air Conditioner,1019,0.79,0.9143,3.4149,225.0609
+Toaster,1007,0.8123,0.8912,3.3961,215.8619
+Fridge,976,0.8145,0.9094,3.4264,228.0478
+Washing Machine,976,0.8084,0.8986,3.3777,228.0127

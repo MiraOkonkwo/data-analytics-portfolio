@@ -1,4 +1,4 @@
-# 📊 Data Analytics Portfolio — Miracle Okonkwo
+# 📊 Data Analytics Portfolio: Miracle Okonkwo
 
 **Live site:** https://miraokonkwo.github.io/data-analytics-portfolio/
 
@@ -42,7 +42,16 @@ Each project here starts from a real business question, not a tutorial exercise.
 
 **Impact:** Every query runs against real data and returns validated output, in [`results/sample_output.txt`](02-sql-portfolio/results/sample_output.txt), so the numbers in the README aren't made up.
 
-More projects in progress: an automated KPI dashboard and an A/B test or retention analysis.
+### 3️⃣ Weekly Operations Report
+📁 [`03-kpi-dashboard`](03-kpi-dashboard/) · 🔗 [Live dashboard](https://miraokonkwo.github.io/data-analytics-portfolio/weekly-ops-report/)
+
+**Business problem:** This one mirrors my actual job. I write a weekly report on scheduling, workflow, and performance data by hand. I wanted to prove I could automate it.
+
+**Key insights:** I turned a raw call center log into the same weekly KPI report a manager would ask for: volume, abandonment rate, first-contact resolution, handle time, and satisfaction, broken down by week, department, and agent. Call volume was stable across the quarter, but the abandonment rate never dropped below 16%, more than double the typical 5 to 8% industry benchmark, in every one of the 12 full weeks in the data.
+
+**Impact:** A one-off report can make a chronic problem look like a bad week. A running weekly report catches it immediately, because week 1 and week 12 tell the same story.
+
+More projects in progress: an A/B test or retention analysis.
 
 ## ⚠️ Challenges & Tradeoffs
 
@@ -56,6 +65,7 @@ More projects in progress: an automated KPI dashboard and an A/B test or retenti
 - I'm comfortable writing SQL with CTEs and window functions, not just basic `SELECT` statements.
 - I think about data privacy and cleaning as a first step, not an afterthought.
 - I write up findings the way a manager needs them: a plain-language business problem, the number that matters, and a recommendation.
+- I can turn a manual, recurring report into an automated one without changing what it actually measures.
 
 ## 📬 Let's Connect
 
