@@ -51,8 +51,6 @@ Each project here starts from a real business question, not a tutorial exercise.
 
 **Impact:** A one-off report can make a chronic problem look like a bad week. A running weekly report catches it immediately, because week 1 and week 12 tell the same story.
 
-More projects in progress: an A/B test or retention analysis.
-
 ## ⚠️ Challenges & Tradeoffs
 
 - The raw supply chain dataset was about 92MB with customer PII (names, emails, addresses) mixed in. I dropped every PII column before analysis and kept the raw file out of this repo, documenting where to download it instead.
