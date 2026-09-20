@@ -8,7 +8,7 @@ I currently work as a Data and Operations Coordinator, tracking scheduling, work
 
 - 📧 joymimi30@gmail.com
 - 💻 [github.com/MiraOkonkwo](https://github.com/MiraOkonkwo)
-- 🔗 LinkedIn: *add your LinkedIn URL here*
+- 🔗 [linkedin.com/in/miracle-okonkwo-7b4228263](https://www.linkedin.com/in/miracle-okonkwo-7b4228263)
 
 ## 💡 What This Portfolio Demonstrates
 
