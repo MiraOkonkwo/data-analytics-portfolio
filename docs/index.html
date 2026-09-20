@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Data Analytics Portfolio</title>
+<title>Miracle Okonkwo — Data Analyst Portfolio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +11,7 @@
   :root{
     --bg:#eef0f2; --paper:#ffffff; --ink:#0f151b; --ink-2:#4c5761; --ink-3:#7c8791;
     --line:#d7dce0; --line-soft:#e6e9ec; --accent:#1c3f66; --accent-soft:#e6ecf3;
-    --blue:#2a78d6; --critical:#d03b3b;
+    --blue:#2a78d6; --blue-soft:#eaf1fb; --critical:#d03b3b; --good:#0ca30c;
     --mono:"IBM Plex Mono",ui-monospace,monospace;
     --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
     --disp:"Manrope",var(--sans);
@@ -22,58 +22,272 @@
       color-scheme: dark;
       --bg:#0b0e11; --paper:#14181c; --ink:#eef1f3; --ink-2:#aab3bb; --ink-3:#7c8791;
       --line:#2a3138; --line-soft:#20262c; --accent:#7fabdc; --accent-soft:#1a2733;
-      --blue:#3987e5; --critical:#e66767;
+      --blue:#3987e5; --blue-soft:#152233; --critical:#e66767; --good:#0ca30c;
     }
   }
   :root[data-theme="dark"]{
     color-scheme: dark;
     --bg:#0b0e11; --paper:#14181c; --ink:#eef1f3; --ink-2:#aab3bb; --ink-3:#7c8791;
     --line:#2a3138; --line-soft:#20262c; --accent:#7fabdc; --accent-soft:#1a2733;
-    --blue:#3987e5; --critical:#e66767;
+    --blue:#3987e5; --blue-soft:#152233; --critical:#e66767; --good:#0ca30c;
   }
   *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;}
-  .wrap{max-width:880px;margin:0 auto;padding:56px 20px 80px;}
-  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);}
-  h1{font-family:var(--disp);font-weight:800;font-size:clamp(28px,4.5vw,40px);margin:8px 0 10px;text-wrap:balance;}
-  .dek{font-size:16px;color:var(--ink-2);max-width:60ch;margin:0 0 44px;}
-  .projects{display:flex;flex-direction:column;gap:16px;}
-  a.card{
-    display:block;background:var(--paper);border:1px solid var(--line);border-radius:6px;
-    padding:22px 24px;text-decoration:none;color:inherit;
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px;}
+  a{color:inherit;}
+  section{scroll-margin-top:76px;}
+
+  /* nav */
+  header.nav{
+    position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line);
   }
-  a.card:hover{border-color:var(--blue);}
-  .card-num{font-family:var(--mono);font-size:11px;color:var(--blue);letter-spacing:.08em;}
-  .card h2{font-family:var(--disp);font-weight:700;font-size:19px;margin:6px 0 6px;color:var(--ink);}
-  .card p{margin:0;font-size:14.5px;color:var(--ink-2);}
-  .card .stat{font-family:var(--mono);font-size:12.5px;color:var(--critical);margin-top:10px;display:inline-block;}
-  footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3);}
+  .nav-inner{max-width:1040px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;font-size:15px;text-decoration:none;}
+  .brand .mono{
+    width:32px;height:32px;border-radius:6px;background:var(--accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:600;font-size:12.5px;
+  }
+  nav.links{display:flex;gap:24px;font-size:14px;font-weight:500;}
+  nav.links a{text-decoration:none;color:var(--ink-2);}
+  nav.links a:hover{color:var(--blue);}
+  .nav-cta{font-size:13.5px;font-family:var(--mono);border:1px solid var(--line);border-radius:5px;padding:7px 14px;text-decoration:none;color:var(--ink);white-space:nowrap;}
+  .nav-cta:hover{border-color:var(--blue);color:var(--blue);}
+  #navToggle{display:none;}
+  .burger{display:none;cursor:pointer;font-family:var(--mono);font-size:13px;border:1px solid var(--line);border-radius:5px;padding:7px 12px;}
+
+  /* hero */
+  .hero{padding:64px 0 48px;}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--blue);margin:0 0 14px;}
+  .hero h1{font-family:var(--disp);font-weight:800;font-size:clamp(32px,5vw,48px);line-height:1.08;margin:0 0 16px;text-wrap:balance;}
+  .hero p.lede{font-size:17px;color:var(--ink-2);max-width:62ch;margin:0 0 28px;}
+  .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:44px;}
+  .btn{
+    font-family:var(--sans);font-weight:600;font-size:14.5px;padding:12px 20px;border-radius:6px;
+    text-decoration:none;display:inline-block;
+  }
+  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary:hover{opacity:.9;}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--blue);color:var(--blue);}
+  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+  .hstat{background:var(--paper);padding:18px 16px;}
+  .hstat .n{font-family:var(--mono);font-weight:600;font-size:22px;font-variant-numeric:tabular-nums;}
+  .hstat .l{font-size:12px;color:var(--ink-3);margin-top:4px;}
+
+  /* section heading */
+  .sec-head{margin-bottom:28px;}
+  .sec-head .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin:0 0 8px;}
+  .sec-head h2{font-family:var(--disp);font-weight:700;font-size:26px;margin:0;text-wrap:balance;}
+
+  /* about */
+  #about{padding:56px 0;}
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:start;}
+  #about p{font-size:15px;color:var(--ink-2);margin:0 0 14px;}
+  .fact-list{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:20px 22px;}
+  .fact-list dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin-top:14px;}
+  .fact-list dt:first-child{margin-top:0;}
+  .fact-list dd{margin:3px 0 0;font-size:14px;color:var(--ink);}
+
+  /* skills */
+  #skills{padding:56px 0;}
+  .skill-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;}
+  .skill-group{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px 20px;}
+  .skill-group h3{font-family:var(--disp);font-size:13.5px;font-weight:700;margin:0 0 12px;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{font-family:var(--mono);font-size:12.5px;background:var(--blue-soft);color:var(--accent);border-radius:4px;padding:5px 10px;}
+
+  /* projects */
+  #projects{padding:56px 0;}
+  .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;}
+  .proj-card{background:var(--paper);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;}
+  .proj-card:hover{border-color:var(--blue);}
+  .proj-media{height:150px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .proj-media img{width:100%;height:100%;object-fit:cover;}
+  .proj-code{
+    width:100%;height:100%;padding:16px;font-family:var(--mono);font-size:11.5px;color:var(--accent);
+    background:var(--accent-soft);overflow:hidden;line-height:1.6;
+  }
+  .proj-body{padding:20px 22px 22px;flex:1;display:flex;flex-direction:column;}
+  .proj-card h3{font-family:var(--disp);font-size:17px;font-weight:700;margin:0 0 8px;}
+  .proj-card p{font-size:13.5px;color:var(--ink-2);margin:0 0 14px;flex:1;}
+  .proj-stat{font-family:var(--mono);font-size:12px;color:var(--critical);margin-bottom:12px;}
+  .proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px;}
+  .proj-tags span{font-family:var(--mono);font-size:10.5px;background:var(--line-soft);color:var(--ink-2);border-radius:3px;padding:3px 7px;}
+  .proj-card.soon{opacity:.6;}
+  .proj-card.soon .proj-media{background:var(--line-soft);}
+
+  /* contact */
+  #contact{padding:56px 0 72px;}
+  .contact-card{background:var(--accent);color:#fff;border-radius:8px;padding:36px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;}
+  .contact-card h2{font-family:var(--disp);font-weight:700;font-size:22px;margin:0 0 8px;}
+  .contact-card p{margin:0;font-size:14.5px;opacity:.85;max-width:44ch;}
+  .contact-links{display:flex;flex-direction:column;gap:8px;font-family:var(--mono);font-size:13.5px;}
+  .contact-links a{text-decoration:none;color:#fff;opacity:.9;}
+  .contact-links a:hover{opacity:1;text-decoration:underline;}
+
+  footer{padding:24px 0 40px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
   footer a{color:var(--accent);}
+
+  @media (max-width:760px){
+    .about-grid{grid-template-columns:1fr;}
+    nav.links{display:none;}
+    .burger{display:block;}
+    body.nav-open nav.links{
+      display:flex;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:var(--paper);
+      border-bottom:1px solid var(--line);padding:16px 20px;gap:14px;
+    }
+    .hero-stats{grid-template-columns:1fr 1fr;}
+    .contact-card{flex-direction:column;align-items:flex-start;}
+    .nav-cta{display:none;}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <p class="eyebrow">Data Analytics Portfolio</p>
-  <h1>Case studies from an operations background</h1>
-  <p class="dek">Each project starts as a real business question, not a tutorial exercise. Built on real or realistic datasets, with findings quantified in dollars and days, not just charts.</p>
 
-  <div class="projects">
-    <a class="card" href="fulfillment-risk-analysis/">
-      <div class="card-num">Project 01</div>
-      <h2>Fulfillment Risk Analysis</h2>
-      <p>Audited 180,519 supply-chain orders to trace a 54.8% late-delivery rate to a shipping-mode SLA gap, not to region or department.</p>
-      <span class="stat">First Class shipping: 95.3% late</span>
-    </a>
-
-    <a class="card" href="https://github.com/MiraOkonkwo/data-analytics-portfolio/tree/master/02-sql-portfolio">
-      <div class="card-num">Project 02</div>
-      <h2>SQL Portfolio</h2>
-      <p>18 business-question SQL queries using joins, CTEs, and window functions (RANK, NTILE, LAG) against a 16,282-order relational database.</p>
-      <span class="stat" style="color:var(--blue)">sales ranking · churn risk · YoY growth</span>
-    </a>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#home"><span class="mono">MO</span> Miracle Okonkwo</a>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <a class="nav-cta" href="https://github.com/MiraOkonkwo/data-analytics-portfolio" target="_blank" rel="noopener">Source</a>
+      <button class="burger" id="burgerBtn" aria-label="Toggle navigation">Menu</button>
+    </div>
   </div>
+</header>
 
-  <footer>More projects in progress. Source on <a href="https://github.com/MiraOkonkwo/data-analytics-portfolio">GitHub</a>.</footer>
-</div>
+<section id="home" class="wrap hero">
+  <p class="eyebrow">Data Analytics Portfolio</p>
+  <h1>I trace business numbers back to why they happened.</h1>
+  <p class="lede">I'm a Data and Operations Coordinator with a Computer Science and Statistics degree, moving into data analysis. My day job showed me how information gaps quietly undermine growth. This portfolio is where I go find those gaps on purpose.</p>
+  <div class="hero-ctas">
+    <a class="btn btn-primary" href="#projects">View projects</a>
+    <a class="btn btn-ghost" href="#contact">Get in touch</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="n">180,519</div><div class="l">order records audited</div></div>
+    <div class="hstat"><div class="n">18</div><div class="l">SQL queries, all validated</div></div>
+    <div class="hstat"><div class="n">$2.15M</div><div class="l">in findings quantified</div></div>
+  </div>
+</section>
+
+<section id="about" class="wrap">
+  <div class="sec-head"><p class="kicker">About</p><h2>From operations to analytics</h2></div>
+  <div class="about-grid">
+    <div>
+      <p>I currently work as a Data and Operations Coordinator: maintaining operational records, tracking scheduling and performance data in Excel and Google Sheets, and writing weekly reports for management. Along the way, the recurring problem was never a lack of data. It was information gaps that hid where a process was actually breaking down.</p>
+      <p>That's what pushed me toward data analysis. I hold a degree in Computer Science and Statistics, and this portfolio is where I put that background to work on real questions: not just building a chart, but tracing a number back to its root cause and saying what it costs.</p>
+      <p>I'm currently looking for junior or entry-level data analyst roles, and open to internships with a genuine path to full-time.</p>
+    </div>
+    <dl class="fact-list">
+      <dt>Currently</dt>
+      <dd>Data and Operations Coordinator</dd>
+      <dt>Education</dt>
+      <dd>B.Sc. Computer Science and Statistics</dd>
+      <dt>Looking for</dt>
+      <dd>Junior / entry-level data analyst roles, internships</dd>
+      <dt>Based in</dt>
+      <dd>Nigeria, open to remote roles</dd>
+    </dl>
+  </div>
+</section>
+
+<section id="skills" class="wrap">
+  <div class="sec-head"><p class="kicker">Skills</p><h2>What I actually use</h2></div>
+  <div class="skill-groups">
+    <div class="skill-group">
+      <h3>Languages</h3>
+      <div class="chips"><span class="chip">Python</span><span class="chip">SQL</span></div>
+    </div>
+    <div class="skill-group">
+      <h3>Libraries</h3>
+      <div class="chips"><span class="chip">pandas</span><span class="chip">matplotlib</span></div>
+    </div>
+    <div class="skill-group">
+      <h3>Databases</h3>
+      <div class="chips"><span class="chip">SQLite</span></div>
+    </div>
+    <div class="skill-group">
+      <h3>Tools</h3>
+      <div class="chips"><span class="chip">Excel</span><span class="chip">Google Sheets</span><span class="chip">Git</span><span class="chip">GitHub</span></div>
+    </div>
+    <div class="skill-group">
+      <h3>Foundations</h3>
+      <div class="chips"><span class="chip">Statistics</span><span class="chip">Process analysis</span><span class="chip">Business reporting</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="wrap">
+  <div class="sec-head"><p class="kicker">Projects</p><h2>Featured work</h2></div>
+  <div class="proj-grid">
+
+    <a class="proj-card" href="fulfillment-risk-analysis/">
+      <div class="proj-media"><img src="assets/project1-thumb.png" alt="Bar chart of late delivery rate by shipping mode"></div>
+      <div class="proj-body">
+        <h3>Fulfillment Risk Analysis</h3>
+        <p>Audited 180,519 supply-chain orders and traced a 54.8% late-delivery rate to a shipping-mode SLA gap, not to region or department.</p>
+        <div class="proj-stat">First Class shipping: 95.3% late</div>
+        <div class="proj-tags"><span>Python</span><span>pandas</span><span>matplotlib</span><span>Data cleaning</span></div>
+      </div>
+    </a>
+
+    <a class="proj-card" href="https://github.com/MiraOkonkwo/data-analytics-portfolio/tree/master/02-sql-portfolio">
+      <div class="proj-media">
+        <div class="proj-code">SELECT employee,<br>&nbsp;&nbsp;RANK() OVER (<br>&nbsp;&nbsp;&nbsp;&nbsp;ORDER BY revenue DESC<br>&nbsp;&nbsp;) AS rank<br>FROM emp_rev<br>ORDER BY rank;</div>
+      </div>
+      <div class="proj-body">
+        <h3>SQL Portfolio</h3>
+        <p>18 business-question SQL queries against a 16,282-order database: joins, CTEs, and window functions like RANK, NTILE, and LAG.</p>
+        <div class="proj-stat" style="color:var(--blue)">sales ranking · churn risk · YoY growth</div>
+        <div class="proj-tags"><span>SQL</span><span>SQLite</span><span>Window functions</span><span>CTEs</span></div>
+      </div>
+    </a>
+
+    <div class="proj-card soon">
+      <div class="proj-media"><div class="proj-code">In progress</div></div>
+      <div class="proj-body">
+        <h3>Automated KPI Dashboard</h3>
+        <p>Rebuilding a manual weekly-reporting workflow as a self-refreshing dashboard. Coming next.</p>
+        <div class="proj-tags"><span>Power BI</span><span>DAX</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact" class="wrap">
+  <div class="contact-card">
+    <div>
+      <h2>Let's talk</h2>
+      <p>If you're hiring for a junior or entry-level analyst role, or just want to talk about one of these projects, reach out.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:joymimi30@gmail.com">joymimi30@gmail.com</a>
+      <a href="https://www.linkedin.com/in/miracle-okonkwo-7b4228263" target="_blank" rel="noopener">linkedin.com/in/miracle-okonkwo</a>
+      <a href="https://github.com/MiraOkonkwo" target="_blank" rel="noopener">github.com/MiraOkonkwo</a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>&copy; 2026 Miracle Okonkwo.</span>
+  <span>Source on <a href="https://github.com/MiraOkonkwo/data-analytics-portfolio">GitHub</a>.</span>
+</footer>
+
+<script>
+  document.getElementById('burgerBtn').addEventListener('click', function(){
+    document.body.classList.toggle('nav-open');
+  });
+  document.querySelectorAll('nav.links a').forEach(function(a){
+    a.addEventListener('click', function(){ document.body.classList.remove('nav-open'); });
+  });
+</script>
+
 </body>
 </html>
