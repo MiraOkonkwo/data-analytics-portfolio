@@ -2,246 +2,205 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Work+Sans:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#eef0f2; --paper:#ffffff; --ink:#0f151b; --ink-2:#4c5761; --ink-3:#7c8791;
-    --line:#d7dce0; --line-soft:#e6e9ec; --accent:#1c3f66; --accent-soft:#e6ecf3;
-    --blue:#2a78d6; --blue-100:#cde2fb; --blue-400:#3987e5; --blue-700:#0d366b;
-    --critical:#d03b3b; --critical-soft:#fbe7e6; --good:#0ca30c; --good-soft:#e3f6e3;
-    --mono:"IBM Plex Mono",ui-monospace,monospace;
-    --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-    --disp:"Manrope",var(--sans);
+    --paper:#f1f0ea; --paper-2:#e7e4d7; --ink:#1a1a15; --ink-2:#55534a; --ink-3:#8a887a;
+    --rule:#c9c5b4; --rule-strong:#1a1a15;
+    --signal:#96650f; --flag:#9c3327; --good:#2f6b2f;
+    --mono:"Courier Prime",ui-monospace,monospace;
+    --sans:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --disp:"Archivo",var(--sans);
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
       color-scheme: dark;
-      --bg:#0b0e11; --paper:#14181c; --ink:#eef1f3; --ink-2:#aab3bb; --ink-3:#7c8791;
-      --line:#2a3138; --line-soft:#20262c; --accent:#7fabdc; --accent-soft:#1a2733;
-      --blue:#3987e5; --blue-100:#122439; --blue-400:#2a78d6; --blue-700:#bcd6f6;
-      --critical:#e66767; --critical-soft:#2c1717; --good:#3fc23f; --good-soft:#152615;
+      --paper:#17160f; --paper-2:#221f16; --ink:#ece8da; --ink-2:#b6b19f; --ink-3:#847f6d;
+      --rule:#413d2e; --rule-strong:#ece8da;
+      --signal:#d19a3f; --flag:#d1776a; --good:#7fbf7f;
     }
   }
   :root[data-theme="dark"]{
     color-scheme: dark;
-    --bg:#0b0e11; --paper:#14181c; --ink:#eef1f3; --ink-2:#aab3bb; --ink-3:#7c8791;
-    --line:#2a3138; --line-soft:#20262c; --accent:#7fabdc; --accent-soft:#1a2733;
-    --blue:#3987e5; --blue-100:#122439; --blue-400:#2a78d6; --blue-700:#bcd6f6;
-    --critical:#e66767; --critical-soft:#2c1717; --good:#3fc23f; --good-soft:#152615;
+    --paper:#17160f; --paper-2:#221f16; --ink:#ece8da; --ink-2:#b6b19f; --ink-3:#847f6d;
+    --rule:#413d2e; --rule-strong:#ece8da;
+    --signal:#d19a3f; --flag:#d1776a; --good:#7fbf7f;
   }
   *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:1040px;margin:0 auto;padding:28px 20px 80px;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:16px;}
+  .wrap{max-width:800px;margin:0 auto;padding:28px 20px 72px;}
 
-  .manifest{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:28px 30px 24px;position:relative;overflow:hidden;}
-  .manifest::before{content:"";position:absolute;inset:6px;border:1px solid var(--line-soft);border-radius:2px;pointer-events:none;}
-  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);}
-  h1{font-family:var(--disp);font-weight:800;font-size:clamp(24px,3.6vw,34px);line-height:1.15;margin:8px 0 6px;text-wrap:balance;}
-  .dek{font-size:15.5px;color:var(--ink-2);max-width:66ch;margin:0 0 20px;}
-  .fields{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);padding-top:14px;}
-  .field{padding:0 16px;border-left:1px solid var(--line);}
-  .field:first-child{padding-left:0;border-left:none;}
-  .field dt{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px;}
-  .field dd{margin:0;font-family:var(--mono);font-weight:600;font-size:13.5px;color:var(--ink);}
-  .stamp{position:absolute;top:22px;right:28px;border:2.5px solid var(--good);color:var(--good);font-family:var(--mono);font-weight:600;font-size:11px;letter-spacing:.09em;text-transform:uppercase;padding:5px 10px;border-radius:3px;transform:rotate(4deg);opacity:.85;}
+  .file-no{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin:0 0 16px;}
+  h1{font-family:var(--disp);font-weight:900;font-size:clamp(24px,4.2vw,34px);line-height:1.16;margin:0 0 16px;letter-spacing:-0.01em;text-wrap:balance;}
+  .dek{font-size:15.5px;color:var(--ink-2);max-width:68ch;margin:0 0 22px;}
 
-  section{margin-top:40px;}
-  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin:0 0 8px;}
-  h2{font-family:var(--disp);font-weight:700;font-size:22px;margin:0 0 10px;text-wrap:balance;}
-  .lede{color:var(--ink-2);font-size:15px;max-width:72ch;margin:0 0 20px;}
-  .card{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:22px 24px;}
-  .finding{display:flex;align-items:flex-start;gap:10px;background:var(--accent-soft);border-left:3px solid var(--blue);padding:12px 16px;border-radius:0 3px 3px 0;font-size:14.5px;color:var(--ink);margin-top:18px;}
-  .finding.crit{background:var(--critical-soft);border-left-color:var(--critical);}
+  .ledger-line{display:flex;align-items:baseline;gap:8px;padding:9px 0;border-bottom:1px solid var(--rule);}
+  .ledger-line:first-child{border-top:1px solid var(--rule);}
+  .ledger-line .label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;}
+  .ledger-line .fill{flex:1;border-bottom:1px dotted var(--rule);min-width:12px;margin-bottom:3px;}
+  .ledger-line .value{font-size:13.5px;color:var(--ink);text-align:right;white-space:nowrap;font-family:var(--mono);}
 
-  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-top:36px;}
-  .kpi{background:var(--paper);padding:16px 18px 14px;}
-  .kpi .val{font-family:var(--mono);font-weight:600;font-size:23px;letter-spacing:-0.01em;color:var(--ink);font-variant-numeric:tabular-nums;}
-  .kpi .delta{font-family:var(--mono);font-size:12px;margin-top:2px;}
-  .kpi .delta.up{color:var(--good);} .kpi .delta.down{color:var(--critical);} .kpi .delta.flat{color:var(--ink-3);}
-  .kpi .lbl{font-size:12px;color:var(--ink-2);margin-top:6px;}
+  .tally{display:flex;flex-wrap:wrap;border-top:2px solid var(--rule-strong);border-bottom:1px solid var(--rule);margin-top:28px;}
+  .tally-cell{flex:1;min-width:130px;padding:14px 14px 12px;border-left:1px solid var(--rule);}
+  .tally-cell:first-child{border-left:none;padding-left:0;}
+  .tally-cell .n{font-family:var(--mono);font-weight:700;font-size:19px;}
+  .tally-cell .delta{font-family:var(--mono);font-size:11px;margin-top:2px;}
+  .tally-cell .delta.up{color:var(--good);} .tally-cell .delta.down{color:var(--flag);} .tally-cell .delta.flat{color:var(--ink-3);}
+  .tally-cell .l{font-size:11.5px;color:var(--ink-2);margin-top:5px;}
 
-  .linechart{width:100%;height:auto;display:block;}
-  .linechart .gridline{stroke:var(--line-soft);stroke-width:1;}
+  section.doc{margin-top:46px;}
+  .sec-num{font-family:var(--mono);font-size:12px;color:var(--signal);letter-spacing:.08em;margin:0 0 6px;}
+  .doc h2{font-family:var(--disp);font-weight:800;font-size:21px;margin:0 0 10px;text-wrap:balance;}
+  .doc .lede{color:var(--ink-2);font-size:14.5px;max-width:70ch;margin:0 0 20px;}
+
+  .note{border-top:1px solid var(--rule-strong);border-bottom:1px solid var(--rule);padding:12px 0;margin-top:18px;font-size:14px;}
+  .note .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-right:8px;}
+  .note.flag .tag{color:var(--flag);}
+
+  .linechart{width:100%;height:auto;display:block;margin-top:6px;}
+  .linechart .gridline{stroke:var(--rule);stroke-width:1;}
   .linechart .axis-label{fill:var(--ink-3);font-family:var(--mono);font-size:9.5px;}
-  .linechart .area{fill:url(#areaGrad);}
-  .linechart .area2{fill:url(#areaGrad2);}
-  .linechart .line{fill:none;stroke:var(--blue);stroke-width:2;}
-  .linechart .line2{fill:none;stroke:var(--critical);stroke-width:2;}
-  .linechart .endpoint{fill:var(--blue);}
-  .linechart .endpoint2{fill:var(--critical);}
+  .linechart .line{fill:none;stroke:var(--ink);stroke-width:2;}
+  .linechart .line2{fill:none;stroke:var(--flag);stroke-width:2;}
+  .linechart .endpoint{fill:var(--ink);}
+  .linechart .endpoint2{fill:var(--flag);}
   .bench-line{stroke:var(--ink-3);stroke-width:1;stroke-dasharray:3 3;}
 
-  table.kpitable{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:4px;}
-  table.kpitable th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600;padding:0 10px 8px;border-bottom:1px solid var(--line);}
-  table.kpitable th.num, table.kpitable td.num{text-align:right;font-variant-numeric:tabular-nums;}
-  table.kpitable td{padding:8px 10px;border-bottom:1px solid var(--line-soft);color:var(--ink-2);}
-  table.kpitable td.name{color:var(--ink);font-weight:500;}
-  table.kpitable td.rate{font-family:var(--mono);color:var(--ink);}
+  table.kpitable{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px;}
+  table.kpitable th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:700;padding:0 10px 8px;border-bottom:2px solid var(--rule-strong);}
+  table.kpitable th.num, table.kpitable td.num{text-align:right;font-family:var(--mono);}
+  table.kpitable td{padding:8px 10px;border-bottom:1px solid var(--rule);color:var(--ink-2);}
+  table.kpitable td.name{color:var(--ink);font-weight:500;font-family:var(--sans);}
   table.kpitable tr:last-child td{border-bottom:none;}
-  .heatmap-wrap{overflow-x:auto;}
+  .table-wrap{overflow-x:auto;}
 
-  .memo{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:26px 28px;}
-  .memo-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:18px;flex-wrap:wrap;gap:8px;}
-  .memo-head h2{margin:0;}
-  .memo-head .tag{font-family:var(--mono);font-size:11px;color:var(--blue);letter-spacing:.06em;text-transform:uppercase;}
-  .memo p{font-size:14.5px;color:var(--ink-2);margin:0 0 12px;}
-  .memo code{font-family:var(--mono);font-size:12.5px;background:var(--line-soft);padding:2px 6px;border-radius:3px;color:var(--ink);}
+  .entry{padding:20px 0;border-bottom:1px solid var(--rule);}
+  .entry:first-of-type{border-top:2px solid var(--rule-strong);}
+  .entry p{font-size:14.5px;color:var(--ink-2);margin:0;max-width:70ch;}
+  .entry code{font-family:var(--mono);font-size:13px;background:var(--paper-2);padding:2px 5px;color:var(--ink);}
 
-  footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-  footer a{color:var(--accent);}
+  footer{margin-top:48px;}
+  .footer-inner{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);padding-top:16px;border-top:2px solid var(--rule-strong);}
 
   @media (max-width:640px){
-    .fields{grid-template-columns:repeat(2,1fr);row-gap:12px;}
-    .field{border-left:none;padding-left:0;}
-    .kpis{grid-template-columns:repeat(1,1fr);}
-    .stamp{display:none;}
+    .tally{flex-direction:column;}
+    .tally-cell{border-left:none;border-top:1px solid var(--rule);padding-left:0;}
+    .tally-cell:first-child{border-top:none;}
   }
 </style>
 
 <div class="wrap">
 
-  <div class="manifest">
-    <span class="stamp">Auto-refreshed weekly</span>
-    <div class="eyebrow">Automated Operations Reporting &amp; KPI Dashboard &middot; Customer Support</div>
-    <h1>Week ending March 23, 2015</h1>
-    <p class="dek">A call center's raw call log turned into the same weekly report a manager asks for: volume, abandonment, first-contact resolution, handle time, and satisfaction, trended week over week instead of rebuilt by hand each Monday.</p>
-    <dl class="fields">
-      <div class="field"><dt>Period covered</dt><dd>Jan 1 &ndash; Mar 31, 2015</dd></div>
-      <div class="field"><dt>Calls logged</dt><dd>5,000</dd></div>
-      <div class="field"><dt>Agents / departments</dt><dd>8 / 5</dd></div>
-      <div class="field"><dt>Report cadence</dt><dd>Weekly</dd></div>
-    </dl>
+  <p class="file-no">AUTOMATED OPERATIONS REPORTING &amp; KPI DASHBOARD &middot; CUSTOMER SUPPORT</p>
+  <h1>Week ending March 23, 2015</h1>
+  <p class="dek">A call center's raw call log turned into the same weekly report a manager asks for: volume, abandonment, first-contact resolution, handle time, and satisfaction, trended week over week instead of rebuilt by hand each Monday.</p>
+
+  <div class="ledger-line"><span class="label">Period covered</span><span class="fill"></span><span class="value">Jan 1 to Mar 31, 2015</span></div>
+  <div class="ledger-line"><span class="label">Calls logged</span><span class="fill"></span><span class="value">5,000</span></div>
+  <div class="ledger-line"><span class="label">Agents / departments</span><span class="fill"></span><span class="value">8 / 5</span></div>
+  <div class="ledger-line"><span class="label">Report cadence</span><span class="fill"></span><span class="value">Weekly</span></div>
+
+  <div class="tally">
+    <div class="tally-cell"><div class="n">356</div><div class="delta down">&#9660; 4.3% vs prior week</div><div class="l">calls received</div></div>
+    <div class="tally-cell"><div class="n">82.6%</div><div class="delta up">&#9650; 3.6 pts vs prior week</div><div class="l">answer rate</div></div>
+    <div class="tally-cell"><div class="n">17.4%</div><div class="delta up">&#9660; 3.6 pts vs prior week</div><div class="l">abandonment rate</div></div>
+    <div class="tally-cell"><div class="n">89.5%</div><div class="delta flat">&#8212; 0.3 pts vs prior week</div><div class="l">first-contact resolution</div></div>
+    <div class="tally-cell"><div class="n">3.7 min</div><div class="delta up">&#9650; 3 sec faster</div><div class="l">avg. handle time</div></div>
+    <div class="tally-cell"><div class="n">3.33 / 5</div><div class="delta flat">&#8212; 0.04 vs prior week</div><div class="l">customer satisfaction</div></div>
   </div>
 
-  <div class="kpis">
-    <div class="kpi"><div class="val">356</div><div class="delta down">&#9660; 4.3% vs prior week</div><div class="lbl">calls received</div></div>
-    <div class="kpi"><div class="val">82.6%</div><div class="delta up">&#9650; 3.6 pts vs prior week</div><div class="lbl">answer rate</div></div>
-    <div class="kpi"><div class="val">17.4%</div><div class="delta up">&#9660; 3.6 pts vs prior week</div><div class="lbl">abandonment rate</div></div>
-    <div class="kpi"><div class="val">89.5%</div><div class="delta flat">&#8212; 0.3 pts vs prior week</div><div class="lbl">first-contact resolution</div></div>
-    <div class="kpi"><div class="val">3.7 min</div><div class="delta up">&#9650; 3 sec faster</div><div class="lbl">avg. handle time</div></div>
-    <div class="kpi"><div class="val">3.33 / 5</div><div class="delta flat">&#8212; 0.04 vs prior week</div><div class="lbl">customer satisfaction</div></div>
-  </div>
-
-  <section>
-    <p class="kicker">Volume</p>
+  <section class="doc">
+    <p class="sec-num">VOLUME</p>
     <h2>Call volume held steady, no growth trend</h2>
     <p class="lede">Weekly call volume across the 12 full weeks in the quarter (the first and last calendar weeks were partial and are excluded here so they don't distort the trend).</p>
-    <div class="card">
-      <svg class="linechart" viewBox="0 0 900 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Weekly call volume, January to March 2015, ranging from 356 to 442 calls with no clear upward or downward trend">
-        <defs>
-          <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="var(--blue)" stop-opacity="0.22"/>
-            <stop offset="100%" stop-color="var(--blue)" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <line x1="50" y1="188" x2="880" y2="188" class="gridline"/>
-        <line x1="50" y1="128" x2="880" y2="128" class="gridline"/>
-        <line x1="50" y1="68"  x2="880" y2="68"  class="gridline"/>
-        <text x="42" y="192" text-anchor="end" class="axis-label">300</text>
-        <text x="42" y="132" text-anchor="end" class="axis-label">400</text>
-        <text x="42" y="72"  text-anchor="end" class="axis-label">500</text>
-        <text x="50"  y="220" class="axis-label">Jan 05</text>
-        <text x="440" y="220" text-anchor="middle" class="axis-label">Feb 09</text>
-        <text x="820" y="220" text-anchor="end" class="axis-label">Mar 23</text>
-
-        <path class="area" d="M50.0,108.8 L125.3,147.2 L200.5,144.8 L275.8,102.8 L351.1,126.8 L426.3,124.4 L501.6,131.6 L576.8,124.4 L652.1,125.6 L727.4,149.6 L802.6,144.8 L877.9,154.4 L877.9,220 L50,220 Z"/>
-        <path class="line" d="M50.0,108.8 L125.3,147.2 L200.5,144.8 L275.8,102.8 L351.1,126.8 L426.3,124.4 L501.6,131.6 L576.8,124.4 L652.1,125.6 L727.4,149.6 L802.6,144.8 L877.9,154.4"/>
-        <circle class="endpoint" cx="877.9" cy="154.4" r="3.5"/>
-      </svg>
-      <div class="finding">
-        <span>&#8226;</span>
-        <span><b>356 to 442 calls a week</b>, no clear upward or downward trend across the quarter. Volume looks predictable enough to staff against, rather than reactive.</span>
-      </div>
-    </div>
+    <svg class="linechart" viewBox="0 0 900 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Weekly call volume, January to March 2015, ranging from 356 to 442 calls with no clear upward or downward trend">
+      <line x1="50" y1="188" x2="880" y2="188" class="gridline"/>
+      <line x1="50" y1="128" x2="880" y2="128" class="gridline"/>
+      <line x1="50" y1="68"  x2="880" y2="68"  class="gridline"/>
+      <text x="42" y="192" text-anchor="end" class="axis-label">300</text>
+      <text x="42" y="132" text-anchor="end" class="axis-label">400</text>
+      <text x="42" y="72"  text-anchor="end" class="axis-label">500</text>
+      <text x="50"  y="220" class="axis-label">Jan 05</text>
+      <text x="440" y="220" text-anchor="middle" class="axis-label">Feb 09</text>
+      <text x="820" y="220" text-anchor="end" class="axis-label">Mar 23</text>
+      <path class="line" d="M50.0,108.8 L125.3,147.2 L200.5,144.8 L275.8,102.8 L351.1,126.8 L426.3,124.4 L501.6,131.6 L576.8,124.4 L652.1,125.6 L727.4,149.6 L802.6,144.8 L877.9,154.4"/>
+      <circle class="endpoint" cx="877.9" cy="154.4" r="3.5"/>
+    </svg>
+    <div class="note"><span class="tag">Note</span><b>356 to 442 calls a week</b>, no clear upward or downward trend across the quarter. Volume looks predictable enough to staff against, rather than reactive.</div>
   </section>
 
-  <section>
-    <p class="kicker">Abandonment</p>
+  <section class="doc">
+    <p class="sec-num">ABANDONMENT</p>
     <h2>Abandonment rate never dropped below 16%</h2>
     <p class="lede">Industry call centers typically target an abandonment rate under 5&ndash;8%. This one has run at double to quadruple that, every week, for the full quarter.</p>
-    <div class="card">
-      <svg class="linechart" viewBox="0 0 900 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Weekly abandonment rate, January to March 2015, staying between 16 and 21 percent, well above an 8 percent benchmark">
-        <defs>
-          <linearGradient id="areaGrad2" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="var(--critical)" stop-opacity="0.18"/>
-            <stop offset="100%" stop-color="var(--critical)" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <line x1="50" y1="188" x2="880" y2="188" class="gridline"/>
-        <line x1="50" y1="128" x2="880" y2="128" class="gridline"/>
-        <line x1="50" y1="68"  x2="880" y2="68"  class="gridline"/>
-        <text x="42" y="192" text-anchor="end" class="axis-label">10%</text>
-        <text x="42" y="132" text-anchor="end" class="axis-label">17.5%</text>
-        <text x="42" y="72"  text-anchor="end" class="axis-label">25%</text>
-        <line x1="50" y1="164" x2="880" y2="164" class="bench-line"/>
-        <text x="884" y="168" class="axis-label">8% benchmark</text>
-
-        <path class="area2" d="M50.0,132.8 L125.3,128.9 L200.5,100.2 L275.8,137.7 L351.1,110.8 L426.3,108.4 L501.6,113.7 L576.8,112.3 L652.1,119.5 L727.4,118.6 L802.6,100.2 L877.9,128.6 L877.9,220 L50,220 Z"/>
-        <path class="line2" d="M50.0,132.8 L125.3,128.9 L200.5,100.2 L275.8,137.7 L351.1,110.8 L426.3,108.4 L501.6,113.7 L576.8,112.3 L652.1,119.5 L727.4,118.6 L802.6,100.2 L877.9,128.6"/>
-        <circle class="endpoint2" cx="877.9" cy="128.6" r="3.5"/>
-      </svg>
-      <div class="finding crit">
-        <span>&#9888;</span>
-        <span><b>Every single week sits above a typical 8% benchmark.</b> This isn't a bad week, it's the normal state of the queue, and it's the kind of pattern a one-off report would miss but a running weekly report catches immediately.</span>
-      </div>
-    </div>
+    <svg class="linechart" viewBox="0 0 900 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Weekly abandonment rate, January to March 2015, staying between 16 and 21 percent, well above an 8 percent benchmark">
+      <line x1="50" y1="188" x2="880" y2="188" class="gridline"/>
+      <line x1="50" y1="128" x2="880" y2="128" class="gridline"/>
+      <line x1="50" y1="68"  x2="880" y2="68"  class="gridline"/>
+      <text x="42" y="192" text-anchor="end" class="axis-label">10%</text>
+      <text x="42" y="132" text-anchor="end" class="axis-label">17.5%</text>
+      <text x="42" y="72"  text-anchor="end" class="axis-label">25%</text>
+      <line x1="50" y1="164" x2="880" y2="164" class="bench-line"/>
+      <text x="884" y="168" class="axis-label">8% benchmark</text>
+      <path class="line2" d="M50.0,132.8 L125.3,128.9 L200.5,100.2 L275.8,137.7 L351.1,110.8 L426.3,108.4 L501.6,113.7 L576.8,112.3 L652.1,119.5 L727.4,118.6 L802.6,100.2 L877.9,128.6"/>
+      <circle class="endpoint2" cx="877.9" cy="128.6" r="3.5"/>
+    </svg>
+    <div class="note flag"><span class="tag">Flag</span><b>Every single week sits above a typical 8% benchmark.</b> This isn't a bad week, it's the normal state of the queue, and it's the kind of pattern a one-off report would miss but a running weekly report catches immediately.</div>
   </section>
 
-  <section>
-    <p class="kicker">By department</p>
+  <section class="doc">
+    <p class="sec-num">BY DEPARTMENT</p>
     <h2>Performance is close across product lines</h2>
     <p class="lede">No single department is driving the abandonment problem. Resolution and satisfaction are within a few points of each other across all five.</p>
-    <div class="card">
+    <table class="kpitable">
+      <thead><tr><th>Department</th><th class="num">Calls</th><th class="num">Answer rate</th><th class="num">FCR rate</th><th class="num">CSAT</th><th class="num">Avg. handle time</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Television</td><td class="num">1,022</td><td class="num">82.9%</td><td class="num">88.4%</td><td class="num">3.40</td><td class="num">3:48</td></tr>
+        <tr><td class="name">Air Conditioner</td><td class="num">1,019</td><td class="num">79.0%</td><td class="num">91.4%</td><td class="num">3.41</td><td class="num">3:45</td></tr>
+        <tr><td class="name">Toaster</td><td class="num">1,007</td><td class="num">81.2%</td><td class="num">89.1%</td><td class="num">3.40</td><td class="num">3:36</td></tr>
+        <tr><td class="name">Fridge</td><td class="num">976</td><td class="num">81.5%</td><td class="num">90.9%</td><td class="num">3.43</td><td class="num">3:48</td></tr>
+        <tr><td class="name">Washing Machine</td><td class="num">976</td><td class="num">80.8%</td><td class="num">89.9%</td><td class="num">3.38</td><td class="num">3:48</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="doc">
+    <p class="sec-num">BY AGENT</p>
+    <h2>Team performance for the quarter</h2>
+    <p class="lede">Ranked by average customer satisfaction. One call logged under agent "L" (a single record, no full name) was excluded here as a likely data-entry artifact rather than a real ninth agent.</p>
+    <div class="table-wrap">
       <table class="kpitable">
-        <thead><tr><th>Department</th><th class="num">Calls</th><th class="num">Answer rate</th><th class="num">FCR rate</th><th class="num">CSAT</th><th class="num">Avg. handle time</th></tr></thead>
+        <thead><tr><th>Agent</th><th class="num">Calls</th><th class="num">Answer rate</th><th class="num">FCR rate</th><th class="num">CSAT</th><th class="num">Avg. handle time</th></tr></thead>
         <tbody>
-          <tr><td class="name">Television</td><td class="num">1,022</td><td class="num rate">82.9%</td><td class="num rate">88.4%</td><td class="num rate">3.40</td><td class="num rate">3:48</td></tr>
-          <tr><td class="name">Air Conditioner</td><td class="num">1,019</td><td class="num rate">79.0%</td><td class="num rate">91.4%</td><td class="num rate">3.41</td><td class="num rate">3:45</td></tr>
-          <tr><td class="name">Toaster</td><td class="num">1,007</td><td class="num rate">81.2%</td><td class="num rate">89.1%</td><td class="num rate">3.40</td><td class="num rate">3:36</td></tr>
-          <tr><td class="name">Fridge</td><td class="num">976</td><td class="num rate">81.5%</td><td class="num rate">90.9%</td><td class="num rate">3.43</td><td class="num rate">3:48</td></tr>
-          <tr><td class="name">Washing Machine</td><td class="num">976</td><td class="num rate">80.8%</td><td class="num rate">89.9%</td><td class="num rate">3.38</td><td class="num rate">3:48</td></tr>
+          <tr><td class="name">Martha</td><td class="num">638</td><td class="num">80.6%</td><td class="num">89.7%</td><td class="num">3.47</td><td class="num">3:44</td></tr>
+          <tr><td class="name">Dan</td><td class="num">633</td><td class="num">82.6%</td><td class="num">90.1%</td><td class="num">3.45</td><td class="num">3:51</td></tr>
+          <tr><td class="name">Diane</td><td class="num">633</td><td class="num">79.2%</td><td class="num">90.2%</td><td class="num">3.41</td><td class="num">3:39</td></tr>
+          <tr><td class="name">Greg</td><td class="num">623</td><td class="num">80.4%</td><td class="num">90.6%</td><td class="num">3.40</td><td class="num">3:46</td></tr>
+          <tr><td class="name">Stewart</td><td class="num">582</td><td class="num">82.0%</td><td class="num">88.9%</td><td class="num">3.40</td><td class="num">3:46</td></tr>
+          <tr><td class="name">Jim</td><td class="num">666</td><td class="num">80.5%</td><td class="num">90.5%</td><td class="num">3.39</td><td class="num">3:48</td></tr>
+          <tr><td class="name">Becky</td><td class="num">631</td><td class="num">81.9%</td><td class="num">89.4%</td><td class="num">3.37</td><td class="num">3:40</td></tr>
+          <tr><td class="name">Joe</td><td class="num">593</td><td class="num">81.6%</td><td class="num">90.1%</td><td class="num">3.33</td><td class="num">3:44</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <section>
-    <p class="kicker">By agent</p>
-    <h2>Team performance for the quarter</h2>
-    <p class="lede">Ranked by average customer satisfaction. One call logged under agent "L" (a single record, no full name) was excluded here as a likely data-entry artifact rather than a real ninth agent.</p>
-    <div class="card">
-      <div class="heatmap-wrap">
-        <table class="kpitable">
-          <thead><tr><th>Agent</th><th class="num">Calls</th><th class="num">Answer rate</th><th class="num">FCR rate</th><th class="num">CSAT</th><th class="num">Avg. handle time</th></tr></thead>
-          <tbody>
-            <tr><td class="name">Martha</td><td class="num">638</td><td class="num rate">80.6%</td><td class="num rate">89.7%</td><td class="num rate">3.47</td><td class="num rate">3:44</td></tr>
-            <tr><td class="name">Dan</td><td class="num">633</td><td class="num rate">82.6%</td><td class="num rate">90.1%</td><td class="num rate">3.45</td><td class="num rate">3:51</td></tr>
-            <tr><td class="name">Diane</td><td class="num">633</td><td class="num rate">79.2%</td><td class="num rate">90.2%</td><td class="num rate">3.41</td><td class="num rate">3:39</td></tr>
-            <tr><td class="name">Greg</td><td class="num">623</td><td class="num rate">80.4%</td><td class="num rate">90.6%</td><td class="num rate">3.40</td><td class="num rate">3:46</td></tr>
-            <tr><td class="name">Stewart</td><td class="num">582</td><td class="num rate">82.0%</td><td class="num rate">88.9%</td><td class="num rate">3.40</td><td class="num rate">3:46</td></tr>
-            <tr><td class="name">Jim</td><td class="num">666</td><td class="num rate">80.5%</td><td class="num rate">90.5%</td><td class="num rate">3.39</td><td class="num rate">3:48</td></tr>
-            <tr><td class="name">Becky</td><td class="num">631</td><td class="num rate">81.9%</td><td class="num rate">89.4%</td><td class="num rate">3.37</td><td class="num rate">3:40</td></tr>
-            <tr><td class="name">Joe</td><td class="num">593</td><td class="num rate">81.6%</td><td class="num rate">90.1%</td><td class="num rate">3.33</td><td class="num rate">3:44</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="memo">
-      <div class="memo-head">
-        <h2>How this replaces the manual version</h2>
-        <span class="tag">Repeatable, not one-off</span>
-      </div>
+  <section class="doc">
+    <p class="sec-num">METHOD</p>
+    <h2>How this replaces the manual version</h2>
+    <div class="entry">
       <p>This is the part that mirrors my actual job: I used to build a report like this by hand in Excel or Google Sheets every week. Here, a Python script (<code>notebooks/01_analysis.py</code>) reads the raw call log, computes every KPI above by week, department, and agent, and writes clean summary tables to <code>outputs/</code>. Next week's report is: drop in the new export, rerun the script, and this dashboard is current again.</p>
+    </div>
+    <div class="entry">
       <p>The tradeoff is that this version is a static HTML page rebuilt from a CSV snapshot, not a live-connected Power BI or Tableau report sitting on top of a real database. The calculation logic is the same either way, and it's exactly what I'd port into Power BI or a scheduled pipeline if this were plugged into a live system.</p>
     </div>
   </section>
 
   <footer>
-    <span>Source: call center log, Jan&ndash;Mar 2015, 5,000 calls &middot; agent names kept as first-name-only in the source data.</span>
-    <span>Prepared as a portfolio case study.</span>
+    <div class="footer-inner">
+      <span>SOURCE: CALL CENTER LOG, JAN&ndash;MAR 2015, 5,000 CALLS &middot; AGENT NAMES FIRST-NAME-ONLY IN SOURCE DATA</span>
+      <span>PORTFOLIO CASE STUDY</span>
+    </div>
   </footer>
 </div>
