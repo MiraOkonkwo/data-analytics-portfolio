@@ -7,7 +7,7 @@
   :root{
     --paper:#f1f0ea; --paper-2:#e7e4d7; --ink:#1a1a15; --ink-2:#55534a; --ink-3:#8a887a;
     --rule:#c9c5b4; --rule-strong:#1a1a15;
-    --signal:#1f5c66; --flag:#9c3327;
+    --signal:#0f766e; --flag:#b91c1c;
     --mono:"Courier Prime",ui-monospace,monospace;
     --sans:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
     --disp:"Archivo",var(--sans);
@@ -18,14 +18,14 @@
       color-scheme: dark;
       --paper:#17160f; --paper-2:#221f16; --ink:#ece8da; --ink-2:#b6b19f; --ink-3:#847f6d;
       --rule:#413d2e; --rule-strong:#ece8da;
-      --signal:#4fb3c2; --flag:#d1776a;
+      --signal:#2dd4bf; --flag:#f87171;
     }
   }
   :root[data-theme="dark"]{
     color-scheme: dark;
     --paper:#17160f; --paper-2:#221f16; --ink:#ece8da; --ink-2:#b6b19f; --ink-3:#847f6d;
     --rule:#413d2e; --rule-strong:#ece8da;
-    --signal:#4fb3c2; --flag:#d1776a;
+    --signal:#2dd4bf; --flag:#f87171;
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:16px;}
@@ -43,10 +43,10 @@
   .ledger-line .fill{flex:1;border-bottom:1px dotted var(--rule);min-width:12px;margin-bottom:3px;}
   .ledger-line .value{font-size:13.5px;color:var(--ink);text-align:right;white-space:nowrap;font-family:var(--mono);}
 
-  .tally{display:flex;border-top:2px solid var(--rule-strong);border-bottom:1px solid var(--rule);margin-top:28px;flex-wrap:wrap;}
+  .tally{display:flex;border-top:2px solid var(--signal);border-bottom:1px solid var(--rule);margin-top:28px;flex-wrap:wrap;}
   .tally-cell{flex:1;min-width:140px;padding:16px 16px 14px;border-left:1px solid var(--rule);}
   .tally-cell:first-child{border-left:none;padding-left:0;}
-  .tally-cell .n{font-family:var(--mono);font-weight:700;font-size:23px;}
+  .tally-cell .n{font-family:var(--mono);font-weight:700;font-size:23px;color:var(--signal);}
   .tally-cell .n.flag{color:var(--flag);}
   .tally-cell .l{font-size:12px;color:var(--ink-2);margin-top:4px;}
 
@@ -64,7 +64,7 @@
   .bar-row{display:grid;grid-template-columns:118px 1fr 60px;align-items:center;gap:12px;}
   .bar-name{font-size:13.5px;color:var(--ink);font-weight:500;}
   .bar-track{background:var(--paper-2);height:16px;position:relative;}
-  .bar-fill{height:100%;background:var(--ink);}
+  .bar-fill{height:100%;background:var(--signal);}
   .bar-fill.flag{background:var(--flag);}
   .bar-val{font-family:var(--mono);font-weight:700;font-size:13px;text-align:right;color:var(--ink);}
   .bar-sub{grid-column:2/3;font-size:11.5px;color:var(--ink-3);margin-top:-10px;}
@@ -74,8 +74,8 @@
   .linechart .gridline{stroke:var(--rule);stroke-width:1;}
   .linechart .axis-label{fill:var(--ink-3);font-family:var(--mono);font-size:9.5px;}
   .linechart .mean-line{stroke:var(--ink-3);stroke-width:1;stroke-dasharray:3 3;}
-  .linechart .line{fill:none;stroke:var(--ink);stroke-width:2;}
-  .linechart .endpoint{fill:var(--ink);}
+  .linechart .line{fill:none;stroke:var(--signal);stroke-width:2;}
+  .linechart .endpoint{fill:var(--signal);}
 
   /* heatmap */
   .heatmap-wrap{overflow-x:auto;margin-top:14px;}
@@ -214,9 +214,9 @@
     <div class="legend-scale">
       <span>Late rate&nbsp;&nbsp;20%</span>
       <div class="legend-swatches">
-        <span style="background:#f0ead9"></span><span style="background:#e6dcbe"></span><span style="background:#dcc99a"></span>
-        <span style="background:#cdb076"></span><span style="background:#b8935a"></span><span style="background:#96650f"></span>
-        <span style="background:#7a5210"></span><span style="background:#5e3f0e"></span>
+        <span style="background:#d7f2ef"></span><span style="background:#b3e6df"></span><span style="background:#8ad8cd"></span>
+        <span style="background:#5fc9bb"></span><span style="background:#34b8a7"></span><span style="background:#0f766e"></span>
+        <span style="background:#0b5c56"></span><span style="background:#08433f"></span>
       </div>
       <span>100%</span>
     </div>
@@ -304,11 +304,11 @@
   ];
   function shade(v){
     var stops = [
-      [0.20,'#f0ead9'],[0.30,'#e6dcbe'],[0.40,'#dcc99a'],[0.50,'#cdb076'],
-      [0.60,'#b8935a'],[0.70,'#96650f'],[0.80,'#7a5210'],[0.90,'#5e3f0e'],[1.00,'#422c0a']
+      [0.20,'#d7f2ef'],[0.30,'#b3e6df'],[0.40,'#8ad8cd'],[0.50,'#5fc9bb'],
+      [0.60,'#34b8a7'],[0.70,'#0f766e'],[0.80,'#0b5c56'],[0.90,'#08433f'],[1.00,'#052a27']
     ];
     for (var i=0;i<stops.length;i++){ if (v<=stops[i][0]) return stops[i][1]; }
-    return '#422c0a';
+    return '#052a27';
   }
   function textColor(v){ return v>0.55 ? '#f1f0ea' : '#1a1a15'; }
   var body = document.getElementById('heatmapBody');
