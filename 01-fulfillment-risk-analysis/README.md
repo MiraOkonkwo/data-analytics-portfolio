@@ -34,7 +34,7 @@ In my current role as a Data and Operations Coordinator, the recurring problem w
 ## Repo structure
 
 ```
-01-operations-bottleneck-analysis/
+01-fulfillment-risk-analysis/
 ├── README.md
 ├── dashboard.html              # the published case-study dashboard
 ├── data/

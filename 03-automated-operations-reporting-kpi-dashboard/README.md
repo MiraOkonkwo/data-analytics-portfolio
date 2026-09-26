@@ -38,7 +38,7 @@ This is a static HTML page. It's built from a CSV snapshot. It is not a live Pow
 ## Repo structure
 
 ```
-03-kpi-dashboard/
+03-automated-operations-reporting-kpi-dashboard/
 ├── README.md
 ├── dashboard.html              # the published weekly report
 ├── data/

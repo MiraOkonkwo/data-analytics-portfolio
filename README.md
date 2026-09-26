@@ -25,7 +25,7 @@ Each project here starts from a real business question, not a tutorial exercise.
 ## 📂 Featured Projects
 
 ### 1️⃣ Fulfillment Risk Analysis
-📁 [`01-operations-bottleneck-analysis`](01-operations-bottleneck-analysis/) · 🔗 [Live dashboard](https://miraokonkwo.github.io/data-analytics-portfolio/fulfillment-risk-analysis/)
+📁 [`01-fulfillment-risk-analysis`](01-fulfillment-risk-analysis/) · 🔗 [Live dashboard](https://miraokonkwo.github.io/data-analytics-portfolio/fulfillment-risk-analysis/)
 
 **Business problem:** A supply chain network was missing delivery promises on more than half its orders, and nobody had traced why.
 
@@ -43,7 +43,7 @@ Each project here starts from a real business question, not a tutorial exercise.
 **Impact:** Every query runs against real data and returns validated output, in [`results/sample_output.txt`](02-sql-portfolio/results/sample_output.txt), so the numbers in the README aren't made up.
 
 ### 3️⃣ Automated Operations Reporting & KPI Dashboard
-📁 [`03-kpi-dashboard`](03-kpi-dashboard/) · 🔗 [Live dashboard](https://miraokonkwo.github.io/data-analytics-portfolio/weekly-ops-report/)
+📁 [`03-automated-operations-reporting-kpi-dashboard`](03-automated-operations-reporting-kpi-dashboard/) · 🔗 [Live dashboard](https://miraokonkwo.github.io/data-analytics-portfolio/weekly-ops-report/)
 
 **Business problem:** This one mirrors my actual job. I write a weekly report on scheduling, workflow, and performance data by hand. I wanted to prove I could automate it.
 

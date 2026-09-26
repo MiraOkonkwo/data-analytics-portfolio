@@ -20,7 +20,7 @@ Every query and its real output is in [`queries/queries.sql`](queries/queries.sq
 
 **Q6, employee sales ranking:** the top and bottom performer sit $2.2M apart in revenue. Margaret Peacock leads at $51.5M. Laura Callahan trails at $49.3M. `RANK() OVER (ORDER BY revenue DESC)` turns the raw totals into a leaderboard in one line.
 
-**Q9, late-shipment rate by carrier:** all three carriers cluster tightly, between 22.9% and 23.3% late. [Project 1](../01-operations-bottleneck-analysis/) found the same pattern. The real driver sits upstream of which carrier gets picked.
+**Q9, late-shipment rate by carrier:** all three carriers cluster tightly, between 22.9% and 23.3% late. [Project 1](../01-fulfillment-risk-analysis/) found the same pattern. The real driver sits upstream of which carrier gets picked.
 
 **Q10, churn risk:** this query flags customers with no order in the trailing 60 days. It uses `MAX(OrderDate)` per customer against a rolling cutoff. A retention team would use this same logic to build a win-back list.
 
