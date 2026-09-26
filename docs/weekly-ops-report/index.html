@@ -94,7 +94,7 @@
 
   <p class="file-no">AUTOMATED OPERATIONS REPORTING &amp; KPI DASHBOARD &middot; CUSTOMER SUPPORT</p>
   <h1>Week ending March 23, 2015</h1>
-  <p class="dek">A call center's raw call log turned into the same weekly report a manager asks for: volume, abandonment, first-contact resolution, handle time, and satisfaction, trended week over week instead of rebuilt by hand each Monday.</p>
+  <p class="dek">This turns a raw call center log into the weekly report a manager needs. It shows volume, abandonment, first-contact resolution, handle time, and satisfaction. It tracks each one week by week. Nobody has to rebuild it by hand every Monday.</p>
 
   <div class="ledger-line"><span class="label">Period covered</span><span class="fill"></span><span class="value">Jan 1 to Mar 31, 2015</span></div>
   <div class="ledger-line"><span class="label">Calls logged</span><span class="fill"></span><span class="value">5,000</span></div>
@@ -113,7 +113,7 @@
   <section class="doc">
     <p class="sec-num">VOLUME</p>
     <h2>Call volume held steady, no growth trend</h2>
-    <p class="lede">Weekly call volume across the 12 full weeks in the quarter (the first and last calendar weeks were partial and are excluded here so they don't distort the trend).</p>
+    <p class="lede">This shows weekly call volume across the 12 full weeks in the quarter. The first and last calendar weeks were partial. They are left out so they don't distort the trend.</p>
     <svg class="linechart" viewBox="0 0 900 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Weekly call volume, January to March 2015, ranging from 356 to 442 calls with no clear upward or downward trend">
       <line x1="50" y1="188" x2="880" y2="188" class="gridline"/>
       <line x1="50" y1="128" x2="880" y2="128" class="gridline"/>
@@ -127,13 +127,13 @@
       <path class="line" d="M50.0,108.8 L125.3,147.2 L200.5,144.8 L275.8,102.8 L351.1,126.8 L426.3,124.4 L501.6,131.6 L576.8,124.4 L652.1,125.6 L727.4,149.6 L802.6,144.8 L877.9,154.4"/>
       <circle class="endpoint" cx="877.9" cy="154.4" r="3.5"/>
     </svg>
-    <div class="note"><span class="tag">Note</span><b>356 to 442 calls a week</b>, no clear upward or downward trend across the quarter. Volume looks predictable enough to staff against, rather than reactive.</div>
+    <div class="note"><span class="tag">Note</span><b>Calls ranged from 356 to 442 a week.</b> There is no clear upward or downward trend across the quarter. Volume is steady. A manager can staff against it ahead of time.</div>
   </section>
 
   <section class="doc">
     <p class="sec-num">ABANDONMENT</p>
     <h2>Abandonment rate never dropped below 16%</h2>
-    <p class="lede">Industry call centers typically target an abandonment rate under 5&ndash;8%. This one has run at double to quadruple that, every week, for the full quarter.</p>
+    <p class="lede">Most call centers target an abandonment rate under 5 to 8%. This one ran at double to quadruple that. It happened every week, all quarter.</p>
     <svg class="linechart" viewBox="0 0 900 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Weekly abandonment rate, January to March 2015, staying between 16 and 21 percent, well above an 8 percent benchmark">
       <line x1="50" y1="188" x2="880" y2="188" class="gridline"/>
       <line x1="50" y1="128" x2="880" y2="128" class="gridline"/>
@@ -146,7 +146,7 @@
       <path class="line2" d="M50.0,132.8 L125.3,128.9 L200.5,100.2 L275.8,137.7 L351.1,110.8 L426.3,108.4 L501.6,113.7 L576.8,112.3 L652.1,119.5 L727.4,118.6 L802.6,100.2 L877.9,128.6"/>
       <circle class="endpoint2" cx="877.9" cy="128.6" r="3.5"/>
     </svg>
-    <div class="note flag"><span class="tag">Flag</span><b>Every single week sits above a typical 8% benchmark.</b> This isn't a bad week, it's the normal state of the queue, and it's the kind of pattern a one-off report would miss but a running weekly report catches immediately.</div>
+    <div class="note flag"><span class="tag">Flag</span><b>Every week sits above the typical 8% benchmark.</b> This is not a bad week. This is the normal state of the queue. A one-time report would miss this pattern. A running weekly report catches it right away.</div>
   </section>
 
   <section class="doc">
@@ -168,7 +168,7 @@
   <section class="doc">
     <p class="sec-num">BY AGENT</p>
     <h2>Team performance for the quarter</h2>
-    <p class="lede">Ranked by average customer satisfaction. One call logged under agent "L" (a single record, no full name) was excluded here as a likely data-entry artifact rather than a real ninth agent.</p>
+    <p class="lede">This is ranked by average customer satisfaction. One call was logged under agent "L," a single record with no full name. It is left out here. It looks like a data-entry error, not a real ninth agent.</p>
     <div class="table-wrap">
       <table class="kpitable">
         <thead><tr><th>Agent</th><th class="num">Calls</th><th class="num">Answer rate</th><th class="num">FCR rate</th><th class="num">CSAT</th><th class="num">Avg. handle time</th></tr></thead>
@@ -190,10 +190,10 @@
     <p class="sec-num">METHOD</p>
     <h2>How this replaces the manual version</h2>
     <div class="entry">
-      <p>This is the part that mirrors my actual job: I used to build a report like this by hand in Excel or Google Sheets every week. Here, a Python script (<code>notebooks/01_analysis.py</code>) reads the raw call log, computes every KPI above by week, department, and agent, and writes clean summary tables to <code>outputs/</code>. Next week's report is: drop in the new export, rerun the script, and this dashboard is current again.</p>
+      <p>This part mirrors my actual job. I used to build a report like this by hand, in Excel or Google Sheets, every week. Here, a Python script does the work. It's called <code>notebooks/01_analysis.py</code>. It reads the raw call log. It computes every KPI above by week, department, and agent. It writes clean summary tables to <code>outputs/</code>. Next week's report is simple: drop in the new export, rerun the script. The dashboard is current again.</p>
     </div>
     <div class="entry">
-      <p>The tradeoff is that this version is a static HTML page rebuilt from a CSV snapshot, not a live-connected Power BI or Tableau report sitting on top of a real database. The calculation logic is the same either way, and it's exactly what I'd port into Power BI or a scheduled pipeline if this were plugged into a live system.</p>
+      <p>There is one tradeoff. This version is a static HTML page, rebuilt from a CSV snapshot. It is not a live Power BI or Tableau report connected to a real database. The calculation logic is the same either way. I would port this same logic into Power BI, or into a scheduled pipeline, if this connected to a live system.</p>
     </div>
   </section>
 
