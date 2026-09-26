@@ -6,288 +6,217 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Work+Sans:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#eef0f2; --paper:#ffffff; --ink:#0f151b; --ink-2:#4c5761; --ink-3:#7c8791;
-    --line:#d7dce0; --line-soft:#e6e9ec; --accent:#1c3f66; --accent-soft:#e6ecf3;
-    --blue:#2a78d6; --blue-soft:#eaf1fb; --critical:#d03b3b; --good:#0ca30c;
-    --mono:"IBM Plex Mono",ui-monospace,monospace;
-    --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-    --disp:"Manrope",var(--sans);
+    --paper:#f1f0ea; --paper-2:#e7e4d7; --ink:#1a1a15; --ink-2:#55534a; --ink-3:#8a887a;
+    --rule:#c9c5b4; --rule-strong:#1a1a15;
+    --signal:#96650f; --flag:#9c3327;
+    --mono:"Courier Prime",ui-monospace,monospace;
+    --sans:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --disp:"Archivo",var(--sans);
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
       color-scheme: dark;
-      --bg:#0b0e11; --paper:#14181c; --ink:#eef1f3; --ink-2:#aab3bb; --ink-3:#7c8791;
-      --line:#2a3138; --line-soft:#20262c; --accent:#7fabdc; --accent-soft:#1a2733;
-      --blue:#3987e5; --blue-soft:#152233; --critical:#e66767; --good:#0ca30c;
+      --paper:#17160f; --paper-2:#221f16; --ink:#ece8da; --ink-2:#b6b19f; --ink-3:#847f6d;
+      --rule:#413d2e; --rule-strong:#ece8da;
+      --signal:#d19a3f; --flag:#d1776a;
     }
   }
   :root[data-theme="dark"]{
     color-scheme: dark;
-    --bg:#0b0e11; --paper:#14181c; --ink:#eef1f3; --ink-2:#aab3bb; --ink-3:#7c8791;
-    --line:#2a3138; --line-soft:#20262c; --accent:#7fabdc; --accent-soft:#1a2733;
-    --blue:#3987e5; --blue-soft:#152233; --critical:#e66767; --good:#0ca30c;
+    --paper:#17160f; --paper-2:#221f16; --ink:#ece8da; --ink-2:#b6b19f; --ink-3:#847f6d;
+    --rule:#413d2e; --rule-strong:#ece8da;
+    --signal:#d19a3f; --flag:#d1776a;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 20px;}
-  a{color:inherit;}
-  section{scroll-margin-top:76px;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:16px;}
+  .wrap{max-width:740px;margin:0 auto;padding:0 20px;}
+  a{color:var(--signal);}
+  section{scroll-margin-top:64px;}
+  .rule{border:none;border-top:1px solid var(--rule);margin:0;}
+  .rule-strong{border:none;border-top:2px solid var(--rule-strong);margin:0;}
+  .small-caps{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
 
-  /* nav */
-  header.nav{
-    position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line);
-  }
-  .nav-inner{max-width:1040px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
-  .brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;font-size:15px;text-decoration:none;}
-  .brand .mono{
-    width:32px;height:32px;border-radius:6px;background:var(--accent);color:#fff;
-    display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:600;font-size:12.5px;
-  }
-  nav.links{display:flex;gap:24px;font-size:14px;font-weight:500;}
-  nav.links a{text-decoration:none;color:var(--ink-2);}
-  nav.links a:hover{color:var(--blue);}
-  .nav-cta{font-size:13.5px;font-family:var(--mono);border:1px solid var(--line);border-radius:5px;padding:7px 14px;text-decoration:none;color:var(--ink);white-space:nowrap;}
-  .nav-cta:hover{border-color:var(--blue);color:var(--blue);}
-  #navToggle{display:none;}
-  .burger{display:none;cursor:pointer;font-family:var(--mono);font-size:13px;border:1px solid var(--line);border-radius:5px;padding:7px 12px;}
+  header.top{padding:22px 0 16px;}
+  .top-inner{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px 20px;}
+  .top-name{font-family:var(--disp);font-weight:800;font-size:16px;letter-spacing:.02em;text-decoration:none;color:var(--ink);}
+  nav.index{font-family:var(--mono);font-size:13px;color:var(--ink-2);}
+  nav.index a{color:var(--ink-2);text-decoration:none;margin-left:14px;}
+  nav.index a:first-child{margin-left:0;}
+  nav.index a:hover{color:var(--signal);}
 
-  /* hero */
-  .hero{padding:64px 0 48px;}
-  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--blue);margin:0 0 14px;}
-  .hero h1{font-family:var(--disp);font-weight:800;font-size:clamp(32px,5vw,48px);line-height:1.08;margin:0 0 16px;text-wrap:balance;}
-  .hero p.lede{font-size:17px;color:var(--ink-2);max-width:62ch;margin:0 0 28px;}
-  .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:44px;}
-  .btn{
-    font-family:var(--sans);font-weight:600;font-size:14.5px;padding:12px 20px;border-radius:6px;
-    text-decoration:none;display:inline-block;
-  }
-  .btn-primary{background:var(--accent);color:#fff;}
-  .btn-primary:hover{opacity:.9;}
-  .btn-ghost{border:1px solid var(--line);color:var(--ink);}
-  .btn-ghost:hover{border-color:var(--blue);color:var(--blue);}
-  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;}
-  .hstat{background:var(--paper);padding:18px 16px;}
-  .hstat .n{font-family:var(--mono);font-weight:600;font-size:22px;font-variant-numeric:tabular-nums;}
-  .hstat .l{font-size:12px;color:var(--ink-3);margin-top:4px;}
+  .hero{padding:20px 0 40px;}
+  .file-no{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin:0 0 18px;}
+  .hero h1{font-family:var(--disp);font-weight:900;font-size:clamp(28px,5vw,42px);line-height:1.12;margin:0 0 18px;letter-spacing:-0.01em;text-wrap:balance;}
+  .hero .lede{font-size:16.5px;color:var(--ink-2);max-width:58ch;margin:0 0 26px;}
+  .cmd-row{font-family:var(--mono);font-size:14px;margin-bottom:36px;}
+  .cmd-row a{color:var(--ink);text-decoration:none;margin-right:22px;white-space:nowrap;}
+  .cmd-row a:hover{color:var(--signal);text-decoration:underline;}
+  .cmd-row a::before{content:"[ ";color:var(--ink-3);}
+  .cmd-row a::after{content:" ]";color:var(--ink-3);}
 
-  /* section heading */
-  .sec-head{margin-bottom:28px;}
-  .sec-head .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin:0 0 8px;}
-  .sec-head h2{font-family:var(--disp);font-weight:700;font-size:26px;margin:0;text-wrap:balance;}
+  .tally{display:flex;border-top:2px solid var(--rule-strong);border-bottom:1px solid var(--rule);}
+  .tally-cell{flex:1;padding:16px 16px 14px;border-left:1px solid var(--rule);}
+  .tally-cell:first-child{border-left:none;padding-left:0;}
+  .tally-cell .n{font-family:var(--mono);font-weight:700;font-size:24px;}
+  .tally-cell .l{font-size:12.5px;color:var(--ink-2);margin-top:4px;}
 
-  /* about */
-  #about{padding:56px 0;}
-  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:start;}
-  #about p{font-size:15px;color:var(--ink-2);margin:0 0 14px;}
-  .fact-list{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:20px 22px;}
-  .fact-list dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin-top:14px;}
-  .fact-list dt:first-child{margin-top:0;}
-  .fact-list dd{margin:3px 0 0;font-size:14px;color:var(--ink);}
+  section.doc{padding:44px 0;}
+  .sec-num{font-family:var(--mono);font-size:12px;color:var(--signal);letter-spacing:.08em;}
+  .doc h2{font-family:var(--disp);font-weight:800;font-size:23px;margin:6px 0 20px;text-wrap:balance;}
 
-  /* skills */
-  #skills{padding:56px 0;}
-  .skill-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;}
-  .skill-group{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px 20px;}
-  .skill-group h3{font-family:var(--disp);font-size:13.5px;font-weight:700;margin:0 0 12px;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;}
-  .chip{font-family:var(--mono);font-size:12.5px;background:var(--blue-soft);color:var(--accent);border-radius:4px;padding:5px 10px;}
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start;}
+  #about p{font-size:15.5px;color:var(--ink-2);margin:0 0 14px;}
+  .ledger-line{display:flex;align-items:baseline;gap:8px;padding:9px 0;border-bottom:1px solid var(--rule);}
+  .ledger-line:first-child{border-top:1px solid var(--rule);}
+  .ledger-line .label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;}
+  .ledger-line .fill{flex:1;border-bottom:1px dotted var(--rule);min-width:12px;margin-bottom:3px;}
+  .ledger-line .value{font-size:14px;color:var(--ink);text-align:right;white-space:nowrap;}
 
-  /* projects */
-  #projects{padding:56px 0;}
-  .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;}
-  .proj-card{background:var(--paper);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;}
-  .proj-card:hover{border-color:var(--blue);}
-  .proj-media{height:150px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;overflow:hidden;}
-  .proj-media img{width:100%;height:100%;object-fit:cover;}
-  .proj-code{
-    width:100%;height:100%;padding:16px;font-family:var(--mono);font-size:11.5px;color:var(--accent);
-    background:var(--accent-soft);overflow:hidden;line-height:1.6;
-  }
-  .proj-body{padding:20px 22px 22px;flex:1;display:flex;flex-direction:column;}
-  .proj-card h3{font-family:var(--disp);font-size:17px;font-weight:700;margin:0 0 8px;}
-  .proj-card p{font-size:13.5px;color:var(--ink-2);margin:0 0 14px;flex:1;}
-  .proj-stat{font-family:var(--mono);font-size:12px;color:var(--critical);margin-bottom:12px;}
-  .proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px;}
-  .proj-tags span{font-family:var(--mono);font-size:10.5px;background:var(--line-soft);color:var(--ink-2);border-radius:3px;padding:3px 7px;}
+  .skill-row{padding:12px 0;border-bottom:1px solid var(--rule);}
+  .skill-row:first-child{border-top:1px solid var(--rule);}
+  .skill-row .cat{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);display:inline-block;min-width:120px;}
+  .skill-row .items{font-size:14.5px;color:var(--ink);}
 
-  /* contact */
-  #contact{padding:56px 0 72px;}
-  .contact-card{background:var(--accent);color:#fff;border-radius:8px;padding:36px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;}
-  .contact-card h2{font-family:var(--disp);font-weight:700;font-size:22px;margin:0 0 8px;}
-  .contact-card p{margin:0;font-size:14.5px;opacity:.85;max-width:44ch;}
-  .contact-links{display:flex;flex-direction:column;gap:8px;font-family:var(--mono);font-size:13.5px;}
-  .contact-links a{text-decoration:none;color:#fff;opacity:.9;}
-  .contact-links a:hover{opacity:1;text-decoration:underline;}
+  .entry{padding:26px 0;border-bottom:1px solid var(--rule);}
+  .entry:first-of-type{border-top:2px solid var(--rule-strong);}
+  .entry-head{display:flex;align-items:baseline;gap:12px;margin-bottom:8px;}
+  .entry-num{font-family:var(--mono);font-size:13px;color:var(--ink-3);}
+  .entry h3{font-family:var(--disp);font-weight:800;font-size:19px;margin:0;text-wrap:balance;}
+  .entry p{font-size:14.5px;color:var(--ink-2);margin:0 0 14px;max-width:60ch;}
+  .entry .stat-line{display:flex;align-items:baseline;gap:8px;margin-bottom:6px;}
+  .entry .stat-line .label{font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap;}
+  .entry .stat-line .fill{flex:1;border-bottom:1px dotted var(--rule);min-width:12px;margin-bottom:3px;}
+  .entry .stat-line .value{font-family:var(--mono);font-weight:700;font-size:14px;white-space:nowrap;}
+  .entry .stat-line.flag .value{color:var(--flag);}
+  .entry-link{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:13.5px;text-decoration:none;color:var(--ink);}
+  .entry-link:hover{color:var(--signal);text-decoration:underline;}
+  .entry-link::after{content:" \2192";}
 
-  footer{padding:24px 0 40px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-  footer a{color:var(--accent);}
+  #contact .ledger-line .value a{color:var(--ink);text-decoration:none;}
+  #contact .ledger-line .value a:hover{color:var(--signal);}
 
-  @media (max-width:760px){
+  footer{padding:26px 0 48px;}
+  .footer-inner{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);padding-top:16px;border-top:2px solid var(--rule-strong);}
+  footer a{color:var(--ink-3);}
+
+  @media (max-width:600px){
     .about-grid{grid-template-columns:1fr;}
-    nav.links{display:none;}
-    .burger{display:block;}
-    body.nav-open nav.links{
-      display:flex;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:var(--paper);
-      border-bottom:1px solid var(--line);padding:16px 20px;gap:14px;
-    }
-    .hero-stats{grid-template-columns:1fr 1fr;}
-    .contact-card{flex-direction:column;align-items:flex-start;}
-    .nav-cta{display:none;}
+    .tally{flex-direction:column;}
+    .tally-cell{border-left:none;border-top:1px solid var(--rule);padding-left:0;}
+    .tally-cell:first-child{border-top:none;}
+    nav.index a{margin-left:0;margin-right:14px;}
   }
 </style>
 </head>
 <body>
 
-<header class="nav">
-  <div class="nav-inner">
-    <a class="brand" href="#home"><span class="mono">MO</span> Miracle Okonkwo</a>
-    <nav class="links">
+<header class="top wrap">
+  <div class="top-inner">
+    <a class="top-name" href="#top">MIRACLE OKONKWO</a>
+    <nav class="index">
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
     </nav>
-    <div style="display:flex;align-items:center;gap:10px;">
-      <a class="nav-cta" href="https://github.com/MiraOkonkwo/data-analytics-portfolio" target="_blank" rel="noopener">Source</a>
-      <button class="burger" id="burgerBtn" aria-label="Toggle navigation">Menu</button>
-    </div>
   </div>
+  <hr class="rule" style="margin-top:16px;">
 </header>
 
-<section id="home" class="wrap hero">
-  <p class="eyebrow">Data Analytics Portfolio</p>
-  <h1>I trace business numbers back to why they happened.</h1>
+<section id="top" class="wrap hero">
+  <p class="file-no">PORTFOLIO &middot; FILE 01 &middot; DATA ANALYTICS</p>
+  <h1>I trace numbers back to why they happened.</h1>
   <p class="lede">I'm a Data and Operations Coordinator with a Computer Science and Statistics degree, moving into data analysis. My day job showed me how information gaps quietly undermine growth. This portfolio is where I go find those gaps on purpose.</p>
-  <div class="hero-ctas">
-    <a class="btn btn-primary" href="#projects">View projects</a>
-    <a class="btn btn-ghost" href="#contact">Resume</a>
-    <a class="btn btn-ghost" href="#contact">Get in touch</a>
+  <div class="cmd-row">
+    <a href="#projects">View projects</a><a href="#contact">Resume</a><a href="#contact">Get in touch</a>
   </div>
-  <div class="hero-stats">
-    <div class="hstat"><div class="n">180,519</div><div class="l">order records audited</div></div>
-    <div class="hstat"><div class="n">18</div><div class="l">SQL queries, all validated</div></div>
-    <div class="hstat"><div class="n">$2.15M</div><div class="l">in findings quantified</div></div>
+  <div class="tally">
+    <div class="tally-cell"><div class="n">180,519</div><div class="l">order records audited</div></div>
+    <div class="tally-cell"><div class="n">18</div><div class="l">SQL queries, all validated</div></div>
+    <div class="tally-cell"><div class="n">$2.15M</div><div class="l">in findings quantified</div></div>
   </div>
 </section>
 
-<section id="about" class="wrap">
-  <div class="sec-head"><p class="kicker">About</p><h2>From operations to analytics</h2></div>
+<section id="about" class="wrap doc">
+  <p class="sec-num">SECTION 02</p>
+  <h2>From operations to analytics</h2>
   <div class="about-grid">
     <div>
       <p>I currently work as a Data and Operations Coordinator: maintaining operational records, tracking scheduling and performance data in Excel and Google Sheets, and writing weekly reports for management. Along the way, the recurring problem was never a lack of data. It was information gaps that hid where a process was actually breaking down.</p>
       <p>That's what pushed me toward data analysis. I hold a degree in Computer Science and Statistics, and this portfolio is where I put that background to work on real questions: not just building a chart, but tracing a number back to its root cause and saying what it costs.</p>
       <p>I'm currently looking for junior or entry-level data analyst roles, and open to internships with a genuine path to full-time.</p>
     </div>
-    <dl class="fact-list">
-      <dt>Currently</dt>
-      <dd>Data and Operations Coordinator</dd>
-      <dt>Education</dt>
-      <dd>B.Sc. Computer Science and Statistics</dd>
-      <dt>Looking for</dt>
-      <dd>Junior / entry-level data analyst roles, internships</dd>
-      <dt>Based in</dt>
-      <dd>Nigeria, open to remote roles</dd>
-    </dl>
-  </div>
-</section>
-
-<section id="skills" class="wrap">
-  <div class="sec-head"><p class="kicker">Skills</p><h2>What I actually use</h2></div>
-  <div class="skill-groups">
-    <div class="skill-group">
-      <h3>Languages</h3>
-      <div class="chips"><span class="chip">Python</span><span class="chip">SQL</span></div>
-    </div>
-    <div class="skill-group">
-      <h3>Libraries</h3>
-      <div class="chips"><span class="chip">pandas</span><span class="chip">matplotlib</span></div>
-    </div>
-    <div class="skill-group">
-      <h3>Databases</h3>
-      <div class="chips"><span class="chip">SQLite</span></div>
-    </div>
-    <div class="skill-group">
-      <h3>Tools</h3>
-      <div class="chips"><span class="chip">Excel</span><span class="chip">Google Sheets</span><span class="chip">Git</span><span class="chip">GitHub</span></div>
-    </div>
-    <div class="skill-group">
-      <h3>Foundations</h3>
-      <div class="chips"><span class="chip">Statistics</span><span class="chip">Process analysis</span><span class="chip">Business reporting</span></div>
-    </div>
-  </div>
-</section>
-
-<section id="projects" class="wrap">
-  <div class="sec-head"><p class="kicker">Projects</p><h2>Featured work</h2></div>
-  <div class="proj-grid">
-
-    <a class="proj-card" href="fulfillment-risk-analysis/">
-      <div class="proj-media"><img src="assets/project1-thumb.png" alt="Bar chart of late delivery rate by shipping mode"></div>
-      <div class="proj-body">
-        <h3>Fulfillment Risk Analysis</h3>
-        <p>Audited 180,519 supply-chain orders and traced a 54.8% late-delivery rate to a shipping-mode SLA gap, not to region or department.</p>
-        <div class="proj-stat">First Class shipping: 95.3% late</div>
-        <div class="proj-tags"><span>Python</span><span>pandas</span><span>matplotlib</span><span>Data cleaning</span></div>
-      </div>
-    </a>
-
-    <a class="proj-card" href="https://github.com/MiraOkonkwo/data-analytics-portfolio/tree/master/02-sql-portfolio">
-      <div class="proj-media">
-        <div class="proj-code">SELECT employee,<br>&nbsp;&nbsp;RANK() OVER (<br>&nbsp;&nbsp;&nbsp;&nbsp;ORDER BY revenue DESC<br>&nbsp;&nbsp;) AS rank<br>FROM emp_rev<br>ORDER BY rank;</div>
-      </div>
-      <div class="proj-body">
-        <h3>SQL Portfolio</h3>
-        <p>18 business-question SQL queries against a 16,282-order database: joins, CTEs, and window functions like RANK, NTILE, and LAG.</p>
-        <div class="proj-stat" style="color:var(--blue)">sales ranking · churn risk · YoY growth</div>
-        <div class="proj-tags"><span>SQL</span><span>SQLite</span><span>Window functions</span><span>CTEs</span></div>
-      </div>
-    </a>
-
-    <a class="proj-card" href="weekly-ops-report/">
-      <div class="proj-media"><div class="proj-code">Week ending<br>Mar 23, 2015<br><br>Calls: 356<br>Abandon rate: 17.4%<br>FCR: 89.5%</div></div>
-      <div class="proj-body">
-        <h3>Automated Operations Reporting &amp; KPI Dashboard</h3>
-        <p>Automated the exact weekly report I write by hand at my job: call volume, abandonment, resolution, and satisfaction, tracked week over week.</p>
-        <div class="proj-stat">Abandonment rate: never below 16% in 12 weeks</div>
-        <div class="proj-tags"><span>Python</span><span>pandas</span><span>KPI reporting</span></div>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<section id="contact" class="wrap">
-  <div class="contact-card">
     <div>
-      <h2>Let's talk</h2>
-      <p>If you're hiring for a junior or entry-level analyst role, or just want to talk about one of these projects, reach out.</p>
-    </div>
-    <div class="contact-links">
-      <a href="mailto:joymimi30@gmail.com">joymimi30@gmail.com</a>
-      <a href="https://www.linkedin.com/in/miracle-okonkwo-7b4228263" target="_blank" rel="noopener">linkedin.com/in/miracle-okonkwo</a>
-      <a href="https://github.com/MiraOkonkwo" target="_blank" rel="noopener">github.com/MiraOkonkwo</a>
+      <div class="ledger-line"><span class="label">Currently</span><span class="fill"></span><span class="value">Data &amp; Ops Coordinator</span></div>
+      <div class="ledger-line"><span class="label">Education</span><span class="fill"></span><span class="value">B.Sc. CompSci &amp; Statistics</span></div>
+      <div class="ledger-line"><span class="label">Seeking</span><span class="fill"></span><span class="value">Junior analyst, internship</span></div>
+      <div class="ledger-line"><span class="label">Based in</span><span class="fill"></span><span class="value">Nigeria, remote OK</span></div>
     </div>
   </div>
+</section>
+
+<section id="skills" class="wrap doc">
+  <p class="sec-num">SECTION 03</p>
+  <h2>What I actually use</h2>
+  <div class="skill-row"><span class="cat">Languages</span><span class="items">Python &middot; SQL</span></div>
+  <div class="skill-row"><span class="cat">Libraries</span><span class="items">pandas &middot; matplotlib</span></div>
+  <div class="skill-row"><span class="cat">Databases</span><span class="items">SQLite</span></div>
+  <div class="skill-row"><span class="cat">Tools</span><span class="items">Excel &middot; Google Sheets &middot; Git &middot; GitHub</span></div>
+  <div class="skill-row"><span class="cat">Foundations</span><span class="items">Statistics &middot; Process analysis &middot; Business reporting</span></div>
+</section>
+
+<section id="projects" class="wrap doc">
+  <p class="sec-num">SECTION 04</p>
+  <h2>Featured work</h2>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-num">No. 01</span><h3>Fulfillment Risk Analysis</h3></div>
+    <p>Audited 180,519 supply chain orders and traced a 54.8% late-delivery rate to a shipping-mode SLA gap, not to region or department.</p>
+    <div class="stat-line flag"><span class="label">First Class late rate</span><span class="fill"></span><span class="value">95.3%</span></div>
+    <div class="stat-line"><span class="label">Standard Class late rate</span><span class="fill"></span><span class="value">38.1%</span></div>
+    <div class="stat-line"><span class="label">Tools</span><span class="fill"></span><span class="value" style="font-family:var(--sans);font-weight:400;">Python, pandas, matplotlib</span></div>
+    <a class="entry-link" href="fulfillment-risk-analysis/">View full report</a>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-num">No. 02</span><h3>SQL Portfolio</h3></div>
+    <p>18 business-question SQL queries against a 16,282-order database: joins, CTEs, and window functions like RANK, NTILE, and LAG.</p>
+    <div class="stat-line"><span class="label">Queries written</span><span class="fill"></span><span class="value">18</span></div>
+    <div class="stat-line"><span class="label">Covers</span><span class="fill"></span><span class="value" style="font-family:var(--sans);font-weight:400;">sales ranking, churn risk, YoY growth</span></div>
+    <div class="stat-line"><span class="label">Tools</span><span class="fill"></span><span class="value" style="font-family:var(--sans);font-weight:400;">SQL, SQLite</span></div>
+    <a class="entry-link" href="https://github.com/MiraOkonkwo/data-analytics-portfolio/tree/master/02-sql-portfolio">View queries on GitHub</a>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-num">No. 03</span><h3>Automated Operations Reporting &amp; KPI Dashboard</h3></div>
+    <p>Automated the exact weekly report I write by hand at my job: call volume, abandonment, resolution, and satisfaction, tracked week over week.</p>
+    <div class="stat-line flag"><span class="label">Abandonment rate</span><span class="fill"></span><span class="value">never below 16% in 12 weeks</span></div>
+    <div class="stat-line"><span class="label">Tools</span><span class="fill"></span><span class="value" style="font-family:var(--sans);font-weight:400;">Python, pandas</span></div>
+    <a class="entry-link" href="weekly-ops-report/">View full report</a>
+  </div>
+
+</section>
+
+<section id="contact" class="wrap doc">
+  <p class="sec-num">SECTION 05</p>
+  <h2>Get in touch</h2>
+  <p style="font-size:15px;color:var(--ink-2);max-width:60ch;margin:0 0 18px;">If you're hiring for a junior or entry-level analyst role, or just want to talk about one of these projects, reach out.</p>
+  <div class="ledger-line"><span class="label">Email</span><span class="fill"></span><span class="value"><a href="mailto:joymimi30@gmail.com">joymimi30@gmail.com</a></span></div>
+  <div class="ledger-line"><span class="label">LinkedIn</span><span class="fill"></span><span class="value"><a href="https://www.linkedin.com/in/miracle-okonkwo-7b4228263" target="_blank" rel="noopener">miracle-okonkwo-7b4228263</a></span></div>
+  <div class="ledger-line"><span class="label">GitHub</span><span class="fill"></span><span class="value"><a href="https://github.com/MiraOkonkwo" target="_blank" rel="noopener">MiraOkonkwo</a></span></div>
 </section>
 
 <footer class="wrap">
-  <span>&copy; 2026 Miracle Okonkwo.</span>
-  <span>Source on <a href="https://github.com/MiraOkonkwo/data-analytics-portfolio">GitHub</a>.</span>
+  <div class="footer-inner">
+    <span>END OF FILE &middot; &copy; 2026 MIRACLE OKONKWO</span>
+    <span><a href="https://github.com/MiraOkonkwo/data-analytics-portfolio">SOURCE ON GITHUB</a></span>
+  </div>
 </footer>
-
-<script>
-  document.getElementById('burgerBtn').addEventListener('click', function(){
-    document.body.classList.toggle('nav-open');
-  });
-  document.querySelectorAll('nav.links a').forEach(function(a){
-    a.addEventListener('click', function(){ document.body.classList.remove('nav-open'); });
-  });
-</script>
 
 </body>
 </html>
