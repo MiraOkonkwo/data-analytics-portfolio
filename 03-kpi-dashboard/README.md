@@ -1,4 +1,4 @@
-# Weekly Operations Report
+# Automated Operations Reporting & KPI Dashboard
 
 **Live dashboard:** https://miraokonkwo.github.io/data-analytics-portfolio/weekly-ops-report/
 
