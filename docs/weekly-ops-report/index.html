@@ -58,7 +58,8 @@
   .note .tag{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-right:8px;}
   .note.flag .tag{color:var(--flag);}
 
-  .linechart{width:100%;height:auto;display:block;margin-top:6px;}
+  .chart-wrap{position:relative;}
+  .linechart{width:100%;height:auto;display:block;margin-top:6px;cursor:crosshair;}
   .linechart .gridline{stroke:var(--rule);stroke-width:1;}
   .linechart .axis-label{fill:var(--ink-3);font-family:var(--mono);font-size:12.5px;}
   .linechart .line{fill:none;stroke:var(--signal);stroke-width:2;}
@@ -66,9 +67,21 @@
   .linechart .endpoint{fill:var(--signal);}
   .linechart .endpoint2{fill:var(--flag);}
   .bench-line{stroke:var(--ink-3);stroke-width:1;stroke-dasharray:3 3;}
+  .hover-crosshair{stroke:var(--ink-3);stroke-width:1;stroke-dasharray:2 2;opacity:0;pointer-events:none;}
+  .hover-dot{stroke:var(--paper);stroke-width:2;opacity:0;pointer-events:none;}
+  .hover-dot.signal{fill:var(--signal);}
+  .hover-dot.flag{fill:var(--flag);}
+  .chart-tooltip{
+    position:absolute;transform:translate(-50%,-100%);background:var(--ink);color:var(--paper);
+    font-family:var(--mono);font-size:12.5px;padding:5px 9px;pointer-events:none;opacity:0;
+    white-space:nowrap;transition:opacity .08s;z-index:5;
+  }
 
   table.kpitable{width:100%;border-collapse:collapse;font-size:16.5px;margin-top:6px;}
-  table.kpitable th{text-align:left;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:700;padding:0 10px 8px;border-bottom:2px solid var(--rule-strong);}
+  table.kpitable th{text-align:left;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:700;padding:0 10px 8px;border-bottom:2px solid var(--rule-strong);cursor:pointer;user-select:none;}
+  table.kpitable th:hover{color:var(--signal);}
+  table.kpitable th.sorted-asc::after{content:" \2191";}
+  table.kpitable th.sorted-desc::after{content:" \2193";}
   table.kpitable th.num, table.kpitable td.num{text-align:right;font-family:var(--mono);}
   table.kpitable td{padding:8px 10px;border-bottom:1px solid var(--rule);color:var(--ink-2);}
   table.kpitable td.name{color:var(--ink);font-weight:500;font-family:var(--sans);}
@@ -114,19 +127,24 @@
     <p class="sec-num">VOLUME</p>
     <h2>Call volume held steady, no growth trend</h2>
     <p class="lede">This shows weekly call volume across the 12 full weeks in the quarter. The first and last calendar weeks were partial. They are left out so they don't distort the trend.</p>
-    <svg class="linechart" viewBox="0 0 900 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Weekly call volume, January to March 2015, ranging from 356 to 442 calls with no clear upward or downward trend">
-      <line x1="50" y1="188" x2="880" y2="188" class="gridline"/>
-      <line x1="50" y1="128" x2="880" y2="128" class="gridline"/>
-      <line x1="50" y1="68"  x2="880" y2="68"  class="gridline"/>
-      <text x="42" y="192" text-anchor="end" class="axis-label">300</text>
-      <text x="42" y="132" text-anchor="end" class="axis-label">400</text>
-      <text x="42" y="72"  text-anchor="end" class="axis-label">500</text>
-      <text x="50"  y="220" class="axis-label">Jan 05</text>
-      <text x="440" y="220" text-anchor="middle" class="axis-label">Feb 09</text>
-      <text x="820" y="220" text-anchor="end" class="axis-label">Mar 23</text>
-      <path class="line" d="M50.0,108.8 L125.3,147.2 L200.5,144.8 L275.8,102.8 L351.1,126.8 L426.3,124.4 L501.6,131.6 L576.8,124.4 L652.1,125.6 L727.4,149.6 L802.6,144.8 L877.9,154.4"/>
-      <circle class="endpoint" cx="877.9" cy="154.4" r="3.5"/>
-    </svg>
+    <div class="chart-wrap">
+      <svg class="linechart" id="volumeChart" viewBox="0 0 900 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Weekly call volume, January to March 2015, ranging from 356 to 442 calls with no clear upward or downward trend. Hover to see the exact count for any week.">
+        <line x1="50" y1="188" x2="880" y2="188" class="gridline"/>
+        <line x1="50" y1="128" x2="880" y2="128" class="gridline"/>
+        <line x1="50" y1="68"  x2="880" y2="68"  class="gridline"/>
+        <text x="42" y="192" text-anchor="end" class="axis-label">300</text>
+        <text x="42" y="132" text-anchor="end" class="axis-label">400</text>
+        <text x="42" y="72"  text-anchor="end" class="axis-label">500</text>
+        <text x="50"  y="220" class="axis-label">Jan 05</text>
+        <text x="440" y="220" text-anchor="middle" class="axis-label">Feb 09</text>
+        <text x="820" y="220" text-anchor="end" class="axis-label">Mar 23</text>
+        <path class="line" d="M50.0,108.8 L125.3,147.2 L200.5,144.8 L275.8,102.8 L351.1,126.8 L426.3,124.4 L501.6,131.6 L576.8,124.4 L652.1,125.6 L727.4,149.6 L802.6,144.8 L877.9,154.4"/>
+        <circle class="endpoint" cx="877.9" cy="154.4" r="3.5"/>
+        <line class="hover-crosshair" id="volumeCrosshair" x1="50" y1="60" x2="50" y2="200"/>
+        <circle class="hover-dot signal" id="volumeDot" cx="0" cy="0" r="4"/>
+      </svg>
+      <div class="chart-tooltip" id="volumeTooltip"></div>
+    </div>
     <div class="note"><span class="tag">Note</span><b>Calls ranged from 356 to 442 a week.</b> There is no clear upward or downward trend across the quarter. Volume is steady. A manager can staff against it ahead of time.</div>
   </section>
 
@@ -134,18 +152,23 @@
     <p class="sec-num">ABANDONMENT</p>
     <h2>Abandonment rate never dropped below 16%</h2>
     <p class="lede">Most call centers target an abandonment rate under 5 to 8%. This one ran at double to quadruple that. It happened every week, all quarter.</p>
-    <svg class="linechart" viewBox="0 0 900 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Weekly abandonment rate, January to March 2015, staying between 16 and 21 percent, well above an 8 percent benchmark">
-      <line x1="50" y1="188" x2="880" y2="188" class="gridline"/>
-      <line x1="50" y1="128" x2="880" y2="128" class="gridline"/>
-      <line x1="50" y1="68"  x2="880" y2="68"  class="gridline"/>
-      <text x="42" y="192" text-anchor="end" class="axis-label">10%</text>
-      <text x="42" y="132" text-anchor="end" class="axis-label">17.5%</text>
-      <text x="42" y="72"  text-anchor="end" class="axis-label">25%</text>
-      <line x1="50" y1="164" x2="880" y2="164" class="bench-line"/>
-      <text x="884" y="168" class="axis-label">8% benchmark</text>
-      <path class="line2" d="M50.0,132.8 L125.3,128.9 L200.5,100.2 L275.8,137.7 L351.1,110.8 L426.3,108.4 L501.6,113.7 L576.8,112.3 L652.1,119.5 L727.4,118.6 L802.6,100.2 L877.9,128.6"/>
-      <circle class="endpoint2" cx="877.9" cy="128.6" r="3.5"/>
-    </svg>
+    <div class="chart-wrap">
+      <svg class="linechart" id="abandonChart" viewBox="0 0 900 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Weekly abandonment rate, January to March 2015, staying between 16 and 21 percent, well above an 8 percent benchmark. Hover to see the exact rate for any week.">
+        <line x1="50" y1="188" x2="880" y2="188" class="gridline"/>
+        <line x1="50" y1="128" x2="880" y2="128" class="gridline"/>
+        <line x1="50" y1="68"  x2="880" y2="68"  class="gridline"/>
+        <text x="42" y="192" text-anchor="end" class="axis-label">10%</text>
+        <text x="42" y="132" text-anchor="end" class="axis-label">17.5%</text>
+        <text x="42" y="72"  text-anchor="end" class="axis-label">25%</text>
+        <line x1="50" y1="164" x2="880" y2="164" class="bench-line"/>
+        <text x="884" y="168" class="axis-label">8% benchmark</text>
+        <path class="line2" d="M50.0,132.8 L125.3,128.9 L200.5,100.2 L275.8,137.7 L351.1,110.8 L426.3,108.4 L501.6,113.7 L576.8,112.3 L652.1,119.5 L727.4,118.6 L802.6,100.2 L877.9,128.6"/>
+        <circle class="endpoint2" cx="877.9" cy="128.6" r="3.5"/>
+        <line class="hover-crosshair" id="abandonCrosshair" x1="50" y1="60" x2="50" y2="200"/>
+        <circle class="hover-dot flag" id="abandonDot" cx="0" cy="0" r="4"/>
+      </svg>
+      <div class="chart-tooltip" id="abandonTooltip"></div>
+    </div>
     <div class="note flag"><span class="tag">Flag</span><b>Every week sits above the typical 8% benchmark.</b> This is not a bad week. This is the normal state of the queue. A one-time report would miss this pattern. A running weekly report catches it right away.</div>
   </section>
 
@@ -153,7 +176,7 @@
     <p class="sec-num">BY DEPARTMENT</p>
     <h2>Performance is close across product lines</h2>
     <p class="lede">No single department is driving the abandonment problem. Resolution and satisfaction are within a few points of each other across all five.</p>
-    <table class="kpitable">
+    <table class="kpitable" id="deptTable">
       <thead><tr><th>Department</th><th class="num">Calls</th><th class="num">Answer rate</th><th class="num">FCR rate</th><th class="num">CSAT</th><th class="num">Avg. handle time</th></tr></thead>
       <tbody>
         <tr><td class="name">Television</td><td class="num">1,022</td><td class="num">82.9%</td><td class="num">88.4%</td><td class="num">3.40</td><td class="num">3:48</td></tr>
@@ -170,7 +193,7 @@
     <h2>Team performance for the quarter</h2>
     <p class="lede">This is ranked by average customer satisfaction. One call was logged under agent "L," a single record with no full name. It is left out here. It looks like a data-entry error, not a real ninth agent.</p>
     <div class="table-wrap">
-      <table class="kpitable">
+      <table class="kpitable" id="agentTable">
         <thead><tr><th>Agent</th><th class="num">Calls</th><th class="num">Answer rate</th><th class="num">FCR rate</th><th class="num">CSAT</th><th class="num">Avg. handle time</th></tr></thead>
         <tbody>
           <tr><td class="name">Martha</td><td class="num">638</td><td class="num">80.6%</td><td class="num">89.7%</td><td class="num">3.47</td><td class="num">3:44</td></tr>
@@ -204,3 +227,97 @@
     </div>
   </footer>
 </div>
+
+<script>
+(function(){
+  function makeSortable(tableId){
+    var table = document.getElementById(tableId);
+    if (!table) return;
+    var thead = table.querySelector('thead');
+    var tbody = table.querySelector('tbody');
+    var ths = thead.querySelectorAll('th');
+    ths.forEach(function(th, idx){
+      th.addEventListener('click', function(){
+        var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+        var dir = th.dataset.dir === 'asc' ? 'desc' : 'asc';
+        ths.forEach(function(h){ h.dataset.dir=''; h.classList.remove('sorted-asc','sorted-desc'); });
+        th.dataset.dir = dir;
+        th.classList.add(dir === 'asc' ? 'sorted-asc' : 'sorted-desc');
+        rows.sort(function(a,b){
+          var av = a.children[idx].textContent.trim();
+          var bv = b.children[idx].textContent.trim();
+          var an = parseFloat(av.replace(/[^0-9.\-]/g,''));
+          var bn = parseFloat(bv.replace(/[^0-9.\-]/g,''));
+          var cmp = (!isNaN(an) && !isNaN(bn)) ? an-bn : av.localeCompare(bv);
+          return dir === 'asc' ? cmp : -cmp;
+        });
+        rows.forEach(function(r){ tbody.appendChild(r); });
+      });
+    });
+  }
+  makeSortable('deptTable');
+  makeSortable('agentTable');
+
+  function initLineHover(svgId, crosshairId, dotId, tooltipId, data, viewH, suffix){
+    var svg = document.getElementById(svgId);
+    var crosshair = document.getElementById(crosshairId);
+    var dot = document.getElementById(dotId);
+    var tooltip = document.getElementById(tooltipId);
+    var pt = svg.createSVGPoint();
+    function nearest(mx){
+      var best = data[0], bestDist = Infinity;
+      data.forEach(function(d){ var dist = Math.abs(d.x - mx); if (dist < bestDist){ bestDist = dist; best = d; } });
+      return best;
+    }
+    svg.addEventListener('mousemove', function(evt){
+      pt.x = evt.clientX; pt.y = evt.clientY;
+      var svgP = pt.matrixTransform(svg.getScreenCTM().inverse());
+      var d = nearest(svgP.x);
+      crosshair.setAttribute('x1', d.x); crosshair.setAttribute('x2', d.x);
+      crosshair.style.opacity = 1;
+      dot.setAttribute('cx', d.x); dot.setAttribute('cy', d.y);
+      dot.style.opacity = 1;
+      var rect = svg.getBoundingClientRect();
+      var scaleX = rect.width / 900, scaleY = rect.height / viewH;
+      tooltip.style.left = (d.x*scaleX) + 'px';
+      tooltip.style.top = (d.y*scaleY - 10) + 'px';
+      tooltip.textContent = 'Week of ' + d.week + ': ' + d.val + suffix;
+      tooltip.style.opacity = 1;
+    });
+    svg.addEventListener('mouseleave', function(){
+      crosshair.style.opacity = 0; dot.style.opacity = 0; tooltip.style.opacity = 0;
+    });
+  }
+
+  var volumeData = [
+    {"x":50.0,"y":108.8,"week":"Jan 05","val":432},
+    {"x":125.3,"y":147.2,"week":"Jan 12","val":368},
+    {"x":200.5,"y":144.8,"week":"Jan 19","val":372},
+    {"x":275.8,"y":102.8,"week":"Jan 26","val":442},
+    {"x":351.1,"y":126.8,"week":"Feb 02","val":402},
+    {"x":426.3,"y":124.4,"week":"Feb 09","val":406},
+    {"x":501.6,"y":131.6,"week":"Feb 16","val":394},
+    {"x":576.8,"y":124.4,"week":"Feb 23","val":406},
+    {"x":652.1,"y":125.6,"week":"Mar 02","val":404},
+    {"x":727.4,"y":149.6,"week":"Mar 09","val":364},
+    {"x":802.6,"y":144.8,"week":"Mar 16","val":372},
+    {"x":877.9,"y":154.4,"week":"Mar 23","val":356}
+  ];
+  var abandonData = [
+    {"x":50.0,"y":132.8,"week":"Jan 05","val":16.9},
+    {"x":125.3,"y":128.9,"week":"Jan 12","val":17.4},
+    {"x":200.5,"y":100.2,"week":"Jan 19","val":21.0},
+    {"x":275.8,"y":137.7,"week":"Jan 26","val":16.3},
+    {"x":351.1,"y":110.8,"week":"Feb 02","val":19.7},
+    {"x":426.3,"y":108.4,"week":"Feb 09","val":20.0},
+    {"x":501.6,"y":113.7,"week":"Feb 16","val":19.3},
+    {"x":576.8,"y":112.3,"week":"Feb 23","val":19.5},
+    {"x":652.1,"y":119.5,"week":"Mar 02","val":18.6},
+    {"x":727.4,"y":118.6,"week":"Mar 09","val":18.7},
+    {"x":802.6,"y":100.2,"week":"Mar 16","val":21.0},
+    {"x":877.9,"y":128.6,"week":"Mar 23","val":17.4}
+  ];
+  initLineHover('volumeChart','volumeCrosshair','volumeDot','volumeTooltip', volumeData, 240, ' calls');
+  initLineHover('abandonChart','abandonCrosshair','abandonDot','abandonTooltip', abandonData, 240, '% abandoned');
+})();
+</script>

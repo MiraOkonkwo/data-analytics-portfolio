@@ -70,20 +70,31 @@
   .bar-sub{grid-column:2/3;font-size:14.5px;color:var(--ink-3);margin-top:-10px;}
 
   /* line chart */
-  .linechart{width:100%;height:auto;display:block;margin-top:6px;}
+  .chart-wrap{position:relative;}
+  .linechart{width:100%;height:auto;display:block;margin-top:6px;cursor:crosshair;}
   .linechart .gridline{stroke:var(--rule);stroke-width:1;}
   .linechart .axis-label{fill:var(--ink-3);font-family:var(--mono);font-size:12.5px;}
   .linechart .mean-line{stroke:var(--ink-3);stroke-width:1;stroke-dasharray:3 3;}
   .linechart .line{fill:none;stroke:var(--signal);stroke-width:2;}
   .linechart .endpoint{fill:var(--signal);}
+  .hover-crosshair{stroke:var(--ink-3);stroke-width:1;stroke-dasharray:2 2;opacity:0;pointer-events:none;}
+  .hover-dot{fill:var(--signal);stroke:var(--paper);stroke-width:2;opacity:0;pointer-events:none;}
+  .chart-tooltip{
+    position:absolute;transform:translate(-50%,-100%);background:var(--ink);color:var(--paper);
+    font-family:var(--mono);font-size:12.5px;padding:5px 9px;pointer-events:none;opacity:0;
+    white-space:nowrap;transition:opacity .08s;z-index:5;
+  }
 
   /* heatmap */
   .heatmap-wrap{overflow-x:auto;margin-top:14px;}
   table.heatmap{border-collapse:collapse;width:100%;min-width:640px;font-size:15.5px;}
   table.heatmap th{
     font-family:var(--mono);font-weight:700;font-size:12.5px;letter-spacing:.03em;color:var(--ink-2);
-    text-align:center;padding:0 6px 8px;border-bottom:2px solid var(--rule-strong);
+    text-align:center;padding:0 6px 8px;border-bottom:2px solid var(--rule-strong);cursor:pointer;user-select:none;
   }
+  table.heatmap th:hover, table.dept th:hover{color:var(--signal);}
+  table.heatmap th.sorted-asc::after, table.dept th.sorted-asc::after{content:" \2191";}
+  table.heatmap th.sorted-desc::after, table.dept th.sorted-desc::after{content:" \2193";}
   table.heatmap th.rowhead{text-align:left;}
   table.heatmap td{padding:0;border-bottom:1px solid var(--rule);}
   table.heatmap td.rowhead{padding:6px 10px 6px 0;color:var(--ink-2);font-size:13.5px;white-space:nowrap;font-family:var(--mono);}
@@ -98,6 +109,7 @@
   table.dept th{
     text-align:left;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
     color:var(--ink-3);font-weight:700;padding:0 10px 8px;border-bottom:2px solid var(--rule-strong);
+    cursor:pointer;user-select:none;
   }
   table.dept th.num, table.dept td.num{text-align:right;font-family:var(--mono);}
   table.dept td{padding:8px 10px;border-bottom:1px solid var(--rule);color:var(--ink-2);}
@@ -180,22 +192,27 @@
     <p class="sec-num">FINDING 02</p>
     <h2>It isn't seasonal, it's structural</h2>
     <p class="lede">Plotting the late-delivery rate across 37 consecutive months shows almost no movement: no holiday spike, no gradual fix. The process has run at roughly the same failure rate since 2015.</p>
-    <svg class="linechart" viewBox="0 0 900 260" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Monthly late delivery rate, January 2015 to January 2018, holding steady between 52% and 57%">
-      <line x1="50" y1="188" x2="880" y2="188" class="gridline"/>
-      <line x1="50" y1="128" x2="880" y2="128" class="gridline"/>
-      <line x1="50" y1="68"  x2="880" y2="68"  class="gridline"/>
-      <text x="42" y="192" text-anchor="end" class="axis-label">40%</text>
-      <text x="42" y="132" text-anchor="end" class="axis-label">50%</text>
-      <text x="42" y="72"  text-anchor="end" class="axis-label">60%</text>
-      <line x1="50" y1="99.2" x2="880" y2="99.2" class="mean-line"/>
-      <text x="884" y="103" class="axis-label">mean 54.8%</text>
-      <text x="50"  y="240" class="axis-label">2015</text>
-      <text x="290" y="240" class="axis-label">2016</text>
-      <text x="530" y="240" class="axis-label">2017</text>
-      <text x="800" y="240" class="axis-label">2018</text>
-      <path class="line" d="M50.0,103.3 L73.0,98.9 L96.0,99.5 L119.0,104.9 L142.0,97.5 L165.0,103.3 L188.0,95.2 L211.0,93.9 L234.0,87.8 L257.0,99.1 L280.0,102.4 L303.0,99.9 L326.0,94.5 L349.0,103.1 L372.0,93.5 L395.0,96.6 L418.0,94.1 L441.0,86.9 L463.9,116.4 L486.9,96.4 L509.9,98.1 L532.9,99.3 L555.9,100.2 L578.9,91.6 L601.9,106.3 L624.9,100.0 L647.9,96.4 L670.9,105.3 L693.9,107.2 L716.9,107.0 L739.9,99.3 L762.9,89.4 L785.9,102.6 L808.9,106.0 L831.9,97.5 L854.9,96.9 L877.9,90.3"/>
-      <circle class="endpoint" cx="877.9" cy="90.3" r="3.5"/>
-    </svg>
+    <div class="chart-wrap">
+      <svg class="linechart" id="monthlyChart" viewBox="0 0 900 260" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Monthly late delivery rate, January 2015 to January 2018, holding steady between 52% and 57%. Hover to see the exact rate for any month.">
+        <line x1="50" y1="188" x2="880" y2="188" class="gridline"/>
+        <line x1="50" y1="128" x2="880" y2="128" class="gridline"/>
+        <line x1="50" y1="68"  x2="880" y2="68"  class="gridline"/>
+        <text x="42" y="192" text-anchor="end" class="axis-label">40%</text>
+        <text x="42" y="132" text-anchor="end" class="axis-label">50%</text>
+        <text x="42" y="72"  text-anchor="end" class="axis-label">60%</text>
+        <line x1="50" y1="99.2" x2="880" y2="99.2" class="mean-line"/>
+        <text x="884" y="103" class="axis-label">mean 54.8%</text>
+        <text x="50"  y="240" class="axis-label">2015</text>
+        <text x="290" y="240" class="axis-label">2016</text>
+        <text x="530" y="240" class="axis-label">2017</text>
+        <text x="800" y="240" class="axis-label">2018</text>
+        <path class="line" d="M50.0,103.3 L73.0,98.9 L96.0,99.5 L119.0,104.9 L142.0,97.5 L165.0,103.3 L188.0,95.2 L211.0,93.9 L234.0,87.8 L257.0,99.1 L280.0,102.4 L303.0,99.9 L326.0,94.5 L349.0,103.1 L372.0,93.5 L395.0,96.6 L418.0,94.1 L441.0,86.9 L463.9,116.4 L486.9,96.4 L509.9,98.1 L532.9,99.3 L555.9,100.2 L578.9,91.6 L601.9,106.3 L624.9,100.0 L647.9,96.4 L670.9,105.3 L693.9,107.2 L716.9,107.0 L739.9,99.3 L762.9,89.4 L785.9,102.6 L808.9,106.0 L831.9,97.5 L854.9,96.9 L877.9,90.3"/>
+        <circle class="endpoint" cx="877.9" cy="90.3" r="3.5"/>
+        <line class="hover-crosshair" id="monthlyCrosshair" x1="50" y1="60" x2="50" y2="188"/>
+        <circle class="hover-dot" id="monthlyDot" cx="0" cy="0" r="4"/>
+      </svg>
+      <div class="chart-tooltip" id="monthlyTooltip"></div>
+    </div>
     <div class="note"><span class="tag">Note</span><b>Range: 51.9%&ndash;56.8%</b> across 37 months, tightly banded around the 54.8% mean. That's a process running in a stable, chronic failure state, not an event to route around.</div>
   </section>
 
@@ -226,7 +243,7 @@
     <p class="sec-num">FINDING 04</p>
     <h2>Department is a red herring too</h2>
     <p class="lede">Product category late rates sit in a tight 54.4%&ndash;58.9% band, a 4.5-point spread, versus the 57-point spread between shipping modes. Whatever a customer orders, the shipping-mode promise decides whether it arrives on time.</p>
-    <table class="dept">
+    <table class="dept" id="deptTable">
       <thead><tr><th>Department</th><th class="num">Orders</th><th class="num">Late rate</th></tr></thead>
       <tbody>
         <tr><td class="name">Pet Shop</td><td class="num">492</td><td class="num">58.9%</td></tr>
@@ -312,12 +329,93 @@
   }
   function textColor(v){ return v>0.55 ? '#f1f0ea' : '#1a1a15'; }
   var body = document.getElementById('heatmapBody');
-  var rows = regions.map(function(r){
-    var cells = r.slice(1).map(function(v){
-      return '<td class="cell" title="'+r[0]+' · '+Math.round(v*100)+'% late"><div class="cell-inner" style="background:'+shade(v)+';color:'+textColor(v)+'">'+Math.round(v*100)+'%</div></td>';
+  function renderHeatmap(sortCol, dir){
+    var data = regions.slice();
+    if (typeof sortCol === 'number'){
+      data.sort(function(a,b){ return dir === 'asc' ? a[sortCol]-b[sortCol] : b[sortCol]-a[sortCol]; });
+    } else if (sortCol === 'name'){
+      data.sort(function(a,b){ return dir === 'asc' ? a[0].localeCompare(b[0]) : b[0].localeCompare(a[0]); });
+    }
+    var rows = data.map(function(r){
+      var cells = r.slice(1).map(function(v){
+        return '<td class="cell" title="'+r[0]+' · '+Math.round(v*100)+'% late"><div class="cell-inner" style="background:'+shade(v)+';color:'+textColor(v)+'">'+Math.round(v*100)+'%</div></td>';
+      }).join('');
+      return '<tr><td class="rowhead">'+r[0]+'</td>'+cells+'</tr>';
     }).join('');
-    return '<tr><td class="rowhead">'+r[0]+'</td>'+cells+'</tr>';
-  }).join('');
-  body.innerHTML = rows;
+    body.innerHTML = rows;
+  }
+  renderHeatmap();
+
+  var heatmapThs = document.querySelectorAll('#heatmapTable thead th');
+  heatmapThs.forEach(function(th, idx){
+    th.addEventListener('click', function(){
+      var dir = th.dataset.dir === 'asc' ? 'desc' : 'asc';
+      heatmapThs.forEach(function(h){ h.dataset.dir=''; h.classList.remove('sorted-asc','sorted-desc'); });
+      th.dataset.dir = dir;
+      th.classList.add(dir === 'asc' ? 'sorted-asc' : 'sorted-desc');
+      renderHeatmap(idx === 0 ? 'name' : idx, dir);
+    });
+  });
+
+  function makeSortable(tableId){
+    var table = document.getElementById(tableId);
+    if (!table) return;
+    var thead = table.querySelector('thead');
+    var tbody = table.querySelector('tbody');
+    var ths = thead.querySelectorAll('th');
+    ths.forEach(function(th, idx){
+      th.addEventListener('click', function(){
+        var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+        var dir = th.dataset.dir === 'asc' ? 'desc' : 'asc';
+        ths.forEach(function(h){ h.dataset.dir=''; h.classList.remove('sorted-asc','sorted-desc'); });
+        th.dataset.dir = dir;
+        th.classList.add(dir === 'asc' ? 'sorted-asc' : 'sorted-desc');
+        rows.sort(function(a,b){
+          var av = a.children[idx].textContent.trim();
+          var bv = b.children[idx].textContent.trim();
+          var an = parseFloat(av.replace(/[^0-9.\-]/g,''));
+          var bn = parseFloat(bv.replace(/[^0-9.\-]/g,''));
+          var cmp = (!isNaN(an) && !isNaN(bn)) ? an-bn : av.localeCompare(bv);
+          return dir === 'asc' ? cmp : -cmp;
+        });
+        rows.forEach(function(r){ tbody.appendChild(r); });
+      });
+    });
+  }
+  makeSortable('deptTable');
+
+  function initLineHover(svgId, crosshairId, dotId, tooltipId, data, viewH, yLabel){
+    var svg = document.getElementById(svgId);
+    var crosshair = document.getElementById(crosshairId);
+    var dot = document.getElementById(dotId);
+    var tooltip = document.getElementById(tooltipId);
+    var pt = svg.createSVGPoint();
+    function nearest(mx){
+      var best = data[0], bestDist = Infinity;
+      data.forEach(function(d){ var dist = Math.abs(d.x - mx); if (dist < bestDist){ bestDist = dist; best = d; } });
+      return best;
+    }
+    svg.addEventListener('mousemove', function(evt){
+      pt.x = evt.clientX; pt.y = evt.clientY;
+      var svgP = pt.matrixTransform(svg.getScreenCTM().inverse());
+      var d = nearest(svgP.x);
+      crosshair.setAttribute('x1', d.x); crosshair.setAttribute('x2', d.x);
+      crosshair.setAttribute('y2', viewH - 40);
+      crosshair.style.opacity = 1;
+      dot.setAttribute('cx', d.x); dot.setAttribute('cy', d.y);
+      dot.style.opacity = 1;
+      var rect = svg.getBoundingClientRect();
+      var scaleX = rect.width / 900, scaleY = rect.height / (viewH);
+      tooltip.style.left = (d.x*scaleX) + 'px';
+      tooltip.style.top = (d.y*scaleY - 10) + 'px';
+      tooltip.textContent = d.month + ': ' + d.rate + yLabel;
+      tooltip.style.opacity = 1;
+    });
+    svg.addEventListener('mouseleave', function(){
+      crosshair.style.opacity = 0; dot.style.opacity = 0; tooltip.style.opacity = 0;
+    });
+  }
+  var monthlyData = [{"x":50.0,"y":103.31,"month":"Jan 2015","rate":54.1},{"x":73.0,"y":98.88,"month":"Feb 2015","rate":54.9},{"x":96.0,"y":99.47,"month":"Mar 2015","rate":54.8},{"x":119.0,"y":104.94,"month":"Apr 2015","rate":53.8},{"x":142.0,"y":97.48,"month":"May 2015","rate":55.1},{"x":165.0,"y":103.34,"month":"Jun 2015","rate":54.1},{"x":188.0,"y":95.22,"month":"Jul 2015","rate":55.5},{"x":211.0,"y":93.92,"month":"Aug 2015","rate":55.7},{"x":234.0,"y":87.84,"month":"Sep 2015","rate":56.7},{"x":257.0,"y":99.14,"month":"Oct 2015","rate":54.8},{"x":280.0,"y":102.38,"month":"Nov 2015","rate":54.3},{"x":303.0,"y":99.9,"month":"Dec 2015","rate":54.7},{"x":326.0,"y":94.54,"month":"Jan 2016","rate":55.6},{"x":349.0,"y":103.11,"month":"Feb 2016","rate":54.1},{"x":372.0,"y":93.45,"month":"Mar 2016","rate":55.8},{"x":395.0,"y":96.63,"month":"Apr 2016","rate":55.2},{"x":418.0,"y":94.05,"month":"May 2016","rate":55.7},{"x":441.0,"y":86.92,"month":"Jun 2016","rate":56.8},{"x":463.9,"y":116.41,"month":"Jul 2016","rate":51.9},{"x":486.9,"y":96.39,"month":"Aug 2016","rate":55.3},{"x":509.9,"y":98.12,"month":"Sep 2016","rate":55.0},{"x":532.9,"y":99.32,"month":"Oct 2016","rate":54.8},{"x":555.9,"y":100.25,"month":"Nov 2016","rate":54.6},{"x":578.9,"y":91.62,"month":"Dec 2016","rate":56.1},{"x":601.9,"y":106.32,"month":"Jan 2017","rate":53.6},{"x":624.9,"y":99.99,"month":"Feb 2017","rate":54.7},{"x":647.9,"y":96.41,"month":"Mar 2017","rate":55.3},{"x":670.9,"y":105.32,"month":"Apr 2017","rate":53.8},{"x":693.9,"y":107.18,"month":"May 2017","rate":53.5},{"x":716.9,"y":106.97,"month":"Jun 2017","rate":53.5},{"x":739.9,"y":99.34,"month":"Jul 2017","rate":54.8},{"x":762.9,"y":89.38,"month":"Aug 2017","rate":56.4},{"x":785.9,"y":102.62,"month":"Sep 2017","rate":54.2},{"x":808.9,"y":106.05,"month":"Oct 2017","rate":53.7},{"x":831.9,"y":97.49,"month":"Nov 2017","rate":55.1},{"x":854.9,"y":96.93,"month":"Dec 2017","rate":55.2},{"x":877.9,"y":90.27,"month":"Jan 2018","rate":56.3}];
+  initLineHover('monthlyChart','monthlyCrosshair','monthlyDot','monthlyTooltip', monthlyData, 260, '% late');
 })();
 </script>
