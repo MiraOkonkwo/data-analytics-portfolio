@@ -8,9 +8,9 @@ I looked at 180,519 order line items from the DataCo Smart Supply Chain dataset 
 
 In my current role as a Data and Operations Coordinator, the recurring problem was never a lack of data. It was information gaps that hid where a process was actually breaking down. I wanted to apply that same lens to a real dataset: don't just report the late-delivery rate, trace it back to its root cause and put a number on what it costs.
 
-## What I found
+## Findings
 
-1. **The SLA is the bottleneck, not the warehouse.** The overall late-delivery rate is 54.8%, but it's wildly uneven by shipping mode. First Class is late 95.3% of the time. Second Class, 76.6%. Same Day, 45.7%. Standard Class, just 38.1%. The tier sold as fastest is the least dependable one.
+1. **The SLA (service-level agreement, the delivery date promised to the customer) is the bottleneck, not the warehouse.** The overall late-delivery rate is 54.8%, but it's wildly uneven by shipping mode. First Class is late 95.3% of the time. Second Class, 76.6%. Same Day, 45.7%. Standard Class, just 38.1%. The tier sold as fastest is the least dependable one.
 2. **It's chronic, not seasonal.** The monthly late rate stays in a tight 51.9% to 56.8% band across all 37 months. No holiday spike, no gradual improvement. This is a structural process problem, not a one-off event.
 3. **Every region shows the same pattern.** All 23 regions band almost identically by shipping mode (First Class is 92 to 100% late in every single one), which rules out regional carriers or local ops teams as the cause.
 4. **Department is a red herring too.** Product category late rates sit in a narrow 4.5-point band (54.4% to 58.9%), compared to a 57-point spread across shipping modes.

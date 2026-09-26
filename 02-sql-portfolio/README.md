@@ -14,6 +14,28 @@ Every query and its real output is in [`queries/queries.sql`](queries/queries.sq
 | Subqueries (correlated and `HAVING`) | 10, 15 |
 | Date arithmetic (`julianday`, `strftime`) | 8, 9, 10, 18 |
 
+## Schema
+
+The 18 queries use 7 tables. Here are the columns that matter:
+
+| Table | Key columns |
+|---|---|
+| **Customers** | `CustomerID` (PK), `CompanyName`, `Country` |
+| **Orders** | `OrderID` (PK), `CustomerID` (FK), `EmployeeID` (FK), `ShipVia` (FK), `OrderDate` |
+| **Order Details** | `OrderID` (FK), `ProductID` (FK), `UnitPrice`, `Quantity`, `Discount` |
+| **Products** | `ProductID` (PK), `ProductName`, `CategoryID` (FK), `UnitPrice` |
+| **Categories** | `CategoryID` (PK), `CategoryName` |
+| **Employees** | `EmployeeID` (PK), `FirstName`, `LastName`, `Title` |
+| **Shippers** | `ShipperID` (PK), `CompanyName` |
+
+A "PK" is the primary key, the column that uniquely identifies a row in that table. An "FK" is a foreign key, a column that points back to another table's primary key.
+
+How they connect:
+
+- **Orders** is the hub. Each order links to one customer (`CustomerID`), one employee who made the sale (`EmployeeID`), and one shipper (`ShipVia`).
+- **Order Details** is a line-item table. One order can have many rows here, one per product on that order. This is where quantity, price, and discount actually live.
+- **Products** links to **Categories**. Each product belongs to one category.
+
 ## Findings
 
 **Q1, revenue by year:** revenue roughly doubled from 2012 ($18.8M) to 2013 ($38.6M). It then held flat through 2017, at around $40M a year. Growth stalled after that first jump.
