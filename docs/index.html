@@ -12,6 +12,7 @@
     --paper:#f1f0ea; --paper-2:#e7e4d7; --ink:#1a1a15; --ink-2:#55534a; --ink-3:#8a887a;
     --rule:#c9c5b4; --rule-strong:#1a1a15;
     --signal:#96650f; --flag:#9c3327;
+    --proj1:#1f5c66; --proj3:#6b3450;
     --mono:"Courier Prime",ui-monospace,monospace;
     --sans:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
     --disp:"Archivo",var(--sans);
@@ -23,11 +24,13 @@
       --paper:#17160f; --paper-2:#221f16; --ink:#ece8da; --ink-2:#b6b19f; --ink-3:#847f6d;
       --rule:#413d2e; --rule-strong:#ece8da;
       --signal:#d19a3f; --flag:#d1776a;
+      --proj1:#4fb3c2; --proj3:#c97fa8;
     }
   }
   :root[data-theme="dark"]{
     color-scheme: dark;
     --paper:#17160f; --paper-2:#221f16; --ink:#ece8da; --ink-2:#b6b19f; --ink-3:#847f6d;
+    --proj1:#4fb3c2; --proj3:#c97fa8;
     --rule:#413d2e; --rule-strong:#ece8da;
     --signal:#d19a3f; --flag:#d1776a;
   }
@@ -175,7 +178,7 @@
   <h2>Featured work</h2>
 
   <div class="entry">
-    <div class="entry-head"><span class="entry-num">No. 01</span><h3>Fulfillment Risk Analysis</h3></div>
+    <div class="entry-head"><span class="entry-num" style="color:var(--proj1)">No. 01</span><h3>Fulfillment Risk Analysis</h3></div>
     <p>Audited 180,519 supply chain orders and traced a 54.8% late-delivery rate to a shipping-mode SLA gap, not to region or department.</p>
     <div class="stat-line flag"><span class="label">First Class late rate</span><span class="fill"></span><span class="value">95.3%</span></div>
     <div class="stat-line"><span class="label">Standard Class late rate</span><span class="fill"></span><span class="value">38.1%</span></div>
@@ -193,7 +196,7 @@
   </div>
 
   <div class="entry">
-    <div class="entry-head"><span class="entry-num">No. 03</span><h3>Automated Operations Reporting &amp; KPI Dashboard</h3></div>
+    <div class="entry-head"><span class="entry-num" style="color:var(--proj3)">No. 03</span><h3>Automated Operations Reporting &amp; KPI Dashboard</h3></div>
     <p>Automated the exact weekly report I write by hand at my job: call volume, abandonment, resolution, and satisfaction, tracked week over week.</p>
     <div class="stat-line flag"><span class="label">Abandonment rate</span><span class="fill"></span><span class="value">never below 16% in 12 weeks</span></div>
     <div class="stat-line"><span class="label">Tools</span><span class="fill"></span><span class="value" style="font-family:var(--sans);font-weight:400;">Python, pandas</span></div>
